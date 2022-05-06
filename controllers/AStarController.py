@@ -1,4 +1,5 @@
 from models.Node import Node
+from models.Edge import Edge
 from views.Graph import Graph
 
 
@@ -29,13 +30,15 @@ class AStarController:
                 node_enc = node
         return node_enc
 
-    def add_edge(self, u, v, w=1, di=True):
-        self.graph.G.add_edge(u, v, weight=w)
-
+    def add_edge(self, start, end, cost, di=True):
+        # arista para parte grafica
+        self.graph.G.add_edge(start, end, weight=cost)
         # Si el grafo no es dirigido
         if not di:
             # Agrego otra arista en sentido contrario
-            self.graph.G.add_edge(v, u, weight=w)
+            self.graph.G.add_edge(end, start, weight=cost)
+        # parte logica
+        self.edges.append(Edge(self.get_node(start), end, cost))
 
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")

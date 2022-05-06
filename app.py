@@ -49,7 +49,6 @@ if __name__ == '__main__':
             cost = input('Ingrese cost del Node arista ' + str(contEdges) + ': ')
             contEdges += 1
             controller.add_edge(start, end, cost)
-            controller.edges.append(Edge(controller.get_node(start), end, cost))
     except KeyboardInterrupt:
         pass
     for n in controller.nodes:
