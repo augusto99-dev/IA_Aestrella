@@ -6,6 +6,8 @@ from models.Edge import Edge
 from controllers.AStarController import AStarController
 # from tkinter import *
 
+import copy  # modulo para hacer copias superficiales y profundas
+
 
 # nodes = []
 # edges = []
@@ -56,17 +58,34 @@ if __name__ == '__main__':
     # for a in controller.edges:
     #     print(a.start.name)
 
-    # prueba para el metodo de obtener vecinos
+    # TEST para el metodo de obtener vecinos
     # controller.neighbors = controller.get_node("A").get_neighbors()
     # print('vecinos del controlador: ', controller.neighbors)
 
-    # prueba de add vecinos
+    # TEST de add vecinos
     # controller.current_node = controller.nodes[0]
     # controller.close_nodes.append(controller.nodes[2])
     # controller.add_neighbors()
     # print('Nodo actual: ', controller.nodes[0])
     # print('lista de cerrados: ', controller.close_nodes)
     # print('Lista de vecinos: ', controller.neighbors)
+
+    # TEST de tratar vecinos
+    # controller.close_nodes.append(controller.nodes[0])  # A
+    # neig_b: Node = controller.nodes[1]
+    # neig_b.g = 3
+    # controller.neighbors.append(neig_b)  # B
+    # neig_c: Node = controller.nodes[2]
+    # neig_c.g = 5
+    # controller.neighbors.append(neig_c)  # C
+    #
+    # open_b: Node = controller.nodes[1]  # B
+    # copy_open_b = copy.copy(open_b)
+    # copy_open_b.g = 4
+    # controller.open_nodes.append(copy_open_b)  # B
+    # controller.try_neighbors()
+    # print('neighbors list: ', controller.neighbors)
+    # print('open list: ', controller.open_nodes)
 
     controller.drawGraphs()
 

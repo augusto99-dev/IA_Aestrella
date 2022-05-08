@@ -2,6 +2,7 @@ from models.Node import Node
 from models.Edge import Edge
 from views.Graph import Graph
 
+import copy
 
 class AStarController:
     open_nodes = []
@@ -50,13 +51,32 @@ class AStarController:
             if node not in self.close_nodes:
                 self.neighbors.append(node)
 
-            # is_close = False
-            # for node_close in self.close_nodes:
-            #     if node_close == node:
-            #         is_close = True
-            #         break
-            # if not is_close:
-            #     self.neighbors.append(node)
+    def try_neighbors(self):
+        for node in self.neighbors:
+            if any(x.name == node.name for x in self.open_nodes) is False and node not in self.close_nodes:
+                copy_node = copy.copy(node)  # copia superficial
+                self.open_nodes.append(copy_node)
+                print('Copiado nodo vecino en la lista de abiertos')
+            else:
+                # verifico si esta en la lista de abiertos, si es asi retorno su valor. Sino retorna False
+                node_in_open: Node = next((x for x in self.open_nodes if x.name == node.name), False)
+                # print('por el else')
+                # si ya se encuentra en la lista de abierto = is not none
+                if node_in_open is not False:
+                    # print('si no es none')
+                    # print('node.g ', node.g)
+                    # print('node_in_open.g ', node_in_open.g)
+                    if node.g < node_in_open.g:
+                        print('El g del nodo de vecino es menor al g del nodo de abierto')
+                        # actualizo atributos del nodo de la lista de abierto con el de vecino
+                        node_in_open.g = node.g
+                        node_in_open.h = node.h
+                        node_in_open.f = node.f
+                        node_in_open.predecessor = node.predecessor
+
+
+# if any(x.name == "B" for x in self.open_nodes):
+
 
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
@@ -64,3 +84,6 @@ class AStarController:
 # if __name__ == '__main__':
 #     aStar = AStarController()
 #     aStar.main()
+
+    # def get_node_in_list(self):
+
