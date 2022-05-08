@@ -24,7 +24,7 @@ class AStarController:
     def main(self):
         print('In main of Controller')
 
-    def get_node(self, name):
+    def get_node(self, name: str) -> Node:
         for node in self.nodes:
             if node.name == name:
                 node_enc = node
@@ -38,10 +38,16 @@ class AStarController:
             # Agrego otra arista en sentido contrario
             self.graph.G.add_edge(end, start, weight=cost)
         # parte logica
-        self.edges.append(Edge(self.get_node(start), end, cost))
+        # obtengo el nodo para guardar sus aristas
+        node = self.get_node(start)
+        node.edges.append(Edge(node, self.get_node(end), cost))
 
     def drawGraphs(self):
+        print('aristas de A')
+        self.get_node("A").to_string_edges()
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
+
+
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
