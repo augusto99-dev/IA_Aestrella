@@ -10,7 +10,6 @@ class AStarController:
     neighbors = []
 
     nodes = []
-    edges = []
 
     current_node = None
     start_node = None
@@ -20,6 +19,9 @@ class AStarController:
         self.graph = Graph()
         # self.edge = Node()
         # self.node = Node()
+
+    def __repr__(self):
+        return str(self.__dict__)
 
     def main(self):
         print('In main of Controller')
@@ -43,8 +45,6 @@ class AStarController:
         node.edges.append(Edge(node, self.get_node(end), cost))
 
     def drawGraphs(self):
-        print('aristas de A')
-        self.get_node("A").to_string_edges()
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
 
 

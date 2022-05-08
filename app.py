@@ -53,8 +53,13 @@ if __name__ == '__main__':
         pass
     for n in controller.nodes:
         print(n.name)
-    for a in controller.edges:
-        print(a.start.name)
+    # for a in controller.edges:
+    #     print(a.start.name)
+
+    # prueba para el metodo de obtener vecinos
+    # controller.neighbors = controller.get_node("A").get_neighbors()
+    # print('vecinos del controlador: ', controller.neighbors)
+
 
     controller.drawGraphs()
 
