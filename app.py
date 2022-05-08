@@ -60,6 +60,13 @@ if __name__ == '__main__':
     # controller.neighbors = controller.get_node("A").get_neighbors()
     # print('vecinos del controlador: ', controller.neighbors)
 
+    # prueba de add vecinos
+    # controller.current_node = controller.nodes[0]
+    # controller.close_nodes.append(controller.nodes[2])
+    # controller.add_neighbors()
+    # print('Nodo actual: ', controller.nodes[0])
+    # print('lista de cerrados: ', controller.close_nodes)
+    # print('Lista de vecinos: ', controller.neighbors)
 
     controller.drawGraphs()
 

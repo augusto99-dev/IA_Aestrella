@@ -11,9 +11,9 @@ class AStarController:
 
     nodes = []
 
-    current_node = None
-    start_node = None
-    end_node = None
+    current_node: Node = None
+    start_node: Node = None
+    end_node: Node = None
 
     def __init__(self):
         self.graph = Graph()
@@ -44,10 +44,22 @@ class AStarController:
         node = self.get_node(start)
         node.edges.append(Edge(node, self.get_node(end), cost))
 
+    def add_neighbors(self):
+        current_neighbors = self.current_node.get_neighbors()
+        for node in current_neighbors:
+            if node not in self.close_nodes:
+                self.neighbors.append(node)
+
+            # is_close = False
+            # for node_close in self.close_nodes:
+            #     if node_close == node:
+            #         is_close = True
+            #         break
+            # if not is_close:
+            #     self.neighbors.append(node)
+
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
-
-
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
