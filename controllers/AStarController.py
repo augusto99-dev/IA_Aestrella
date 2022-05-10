@@ -1,8 +1,10 @@
 from models.Node import Node
 from models.Edge import Edge
 from views.Graph import Graph
+from operator import attrgetter
 
 import copy
+
 
 class AStarController:
     open_nodes = []
@@ -74,9 +76,24 @@ class AStarController:
                         node_in_open.f = node.f
                         node_in_open.predecessor = node.predecessor
 
+    # if any(x.name == "B" for x in self.open_nodes):
+    #
+    def calculate_attr(self):
+        for node in self.neighbors:
+            print('cost test: ', self.current_node.get_cost(node))
+            node.g = self.current_node.g + self.current_node.get_cost(node)
+            # node.h = node.h # Ya tiene cargado el h desde el input
+            node.f = float(node.g) + float(node.h)
+            node.predecessor = self.current_node
+            print('Nodo in calculate_attr: ', node)
 
-# if any(x.name == "B" for x in self.open_nodes):
-
+    def mov_promising_node_from_open_to_closed(self):
+        ob_min = min(self.open_nodes, key=attrgetter('f'))
+        print('objeto mas bajo: ', ob_min)
+        self.open_nodes.remove(ob_min)
+        self.close_nodes.append(ob_min)
+        print('lista de abiertos despues de eliminar: ', self.open_nodes)
+        print('lista de cerrados despues de agregar: ', self.close_nodes)
 
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
@@ -85,5 +102,4 @@ class AStarController:
 #     aStar = AStarController()
 #     aStar.main()
 
-    # def get_node_in_list(self):
-
+# def get_node_in_list(self):

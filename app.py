@@ -39,7 +39,7 @@ if __name__ == '__main__':
             h = input('Ingrese el valor de h ' + str(cont) + ': ')
             cont += 1
 
-            controller.nodes.append(Node(name, None, h, None, None))
+            controller.nodes.append(Node(name, 0, h, 0, None))
     except KeyboardInterrupt:
         pass
     contEdges = 1
@@ -86,6 +86,19 @@ if __name__ == '__main__':
     # controller.try_neighbors()
     # print('neighbors list: ', controller.neighbors)
     # print('open list: ', controller.open_nodes)
+
+    # TEST calculate_attr (con ABC del primer ejemplo realizado)
+    # controller.current_node = controller.nodes[0]
+    # controller.neighbors.append(controller.nodes[1])
+    # controller.neighbors.append(controller.nodes[2])
+    # print('neighbors antes del calculate_attr: ', controller.neighbors)
+    # print('Nodo actual: ', controller.nodes[0])
+    # controller.calculate_attr()
+    # print('neighbors despues del calculate_attr: ', controller.neighbors)
+
+    # TEST mov_promising_node_from_open_to_closed (me prendo del anterior para probar, descomentar anterior y probar)
+    # controller.open_nodes = controller.neighbors
+    # controller.mov_promising_node_from_open_to_closed()
 
     controller.drawGraphs()
 
