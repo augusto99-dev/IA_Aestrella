@@ -51,10 +51,20 @@ if __name__ == '__main__':
             cost = input('Ingrese cost del Node arista ' + str(contEdges) + ': ')
             contEdges += 1
             controller.add_edge(start, end, cost)
+            # node = controller.get_node(start)
+            # print('nodo del get: ', node)
+            # end_node = controller.get_node(end)
+            # print('nodo del get END: ', end_node)
+            # node.edges.append(Edge(node, end_node, cost))
+            # print('edges del nodo. ', node.edges)
     except KeyboardInterrupt:
         pass
     for n in controller.nodes:
         print(n.name)
+
+    controller.start_node = controller.get_node(input('NODO INICIAL '))
+    controller.end_node = controller.get_node(input('NODO FINAL '))
+
     # for a in controller.edges:
     #     print(a.start.name)
 
@@ -100,5 +110,45 @@ if __name__ == '__main__':
     # controller.open_nodes = controller.neighbors
     # controller.mov_promising_node_from_open_to_closed()
 
-    controller.drawGraphs()
+    # main process star
+    controller.close_nodes.append(controller.start_node)
+    cont = 0
+    print('test de vecinos: ')
+    print('NODE 0', controller.nodes[0].edges)
+    print('\n -----')
+    print('NODE 1', controller.nodes[1].edges)
+    print('\n -----')
+    print('NODE 2', controller.nodes[2].edges)
+
+    print('Vecinos inicialmente de c1. ', controller.nodes[2].edges)
+
+    while next((x for x in controller.close_nodes if x.name == controller.end_node.name), False) is False:
+        asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
+        print('resultado de comparar si es el ultimo: ', asd)
+        print('iteracion::: ', cont)
+        print('LISTA DE CERRADOS ANTES DE OBTENER EL ULTIMO: ', controller.close_nodes)
+        # obtengo el ultimo elemento de la lista de cerrados.
+        controller.current_node = controller.close_nodes.pop()
+        print('NODO ACTUALL OBTENIDO DE LA LISTA DE CERRADOS: ', controller.current_node)
+        print('aristas del nodo actual: ', controller.current_node.get_neighbors())
+        # el anterior lo quita, entonces lo vuelvo a poner
+        controller.close_nodes.append(controller.current_node)
+        controller.add_neighbors()
+        print('neigbors antes de calculate attr:: ', controller.neighbors)
+        controller.calculate_attr()
+        controller.try_neighbors()
+        controller.neighbors.clear()
+        controller.mov_promising_node_from_open_to_closed()
+
+        print('open nodes: ', controller.open_nodes)
+        print('closed nodes: ', controller.close_nodes)
+
+        print('nodo final. ', controller.end_node)
+        cont += 1
+
+    # RUTA CORTA:
+    controller.get_path()
+
+
+    # controller.drawGraphs()
 

@@ -18,6 +18,8 @@ class AStarController:
     start_node: Node = None
     end_node: Node = None
 
+    path = []
+
     def __init__(self):
         self.graph = Graph()
         # self.edge = Node()
@@ -30,6 +32,8 @@ class AStarController:
         print('In main of Controller')
 
     def get_node(self, name: str) -> Node:
+        print('get node: ', self)
+        node_enc = None
         for node in self.nodes:
             if node.name == name:
                 node_enc = node
@@ -49,8 +53,10 @@ class AStarController:
 
     def add_neighbors(self):
         current_neighbors = self.current_node.get_neighbors()
+        print('neighbors del nodo actual ', current_neighbors)
         for node in current_neighbors:
             if node not in self.close_nodes:
+                print('no esta en la lista de cerrados, ', node)
                 self.neighbors.append(node)
 
     def try_neighbors(self):
@@ -94,6 +100,17 @@ class AStarController:
         self.close_nodes.append(ob_min)
         print('lista de abiertos despues de eliminar: ', self.open_nodes)
         print('lista de cerrados despues de agregar: ', self.close_nodes)
+
+    def get_path(self):
+        target_node: Node = self.close_nodes.pop()
+        aux_pred: Node = target_node.predecessor
+        self.path.append(target_node)
+        while aux_pred is not None:
+            self.path.append(aux_pred)
+            aux_pred = aux_pred.predecessor
+        print('CAMINO: ')
+        for node in self.path:
+            print('\n -- : ', node.name)
 
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
