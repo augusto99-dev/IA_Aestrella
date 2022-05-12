@@ -54,7 +54,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     for n in controller.nodes:
-        print(n.name)
+        print(n.edges)
     # for a in controller.edges:
     #     print(a.start.name)
 
