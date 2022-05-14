@@ -53,11 +53,14 @@ class Test:
         controller.add_edge("J", "K", 30)
 
     def run_test(self, controller: AStarController):
-        tree: Tree = Tree()
+        # tree: Tree = Tree('start')
         controller.close_nodes.append(controller.start_node)
         cont = 0
         # pintar nodo inicial
-        tree.set_node(controller.start_node.name, 'start')
+
+        # draw tree
+        controller.draw_start_node()
+        # tree.draw_tree()
         exit_draw = False
         while next((x for x in controller.close_nodes if x.name == controller.end_node.name), False) is False:
             asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
@@ -68,17 +71,16 @@ class Test:
             controller.add_neighbors()
             # pintar vecinos
             # if exit_draw is False:
-            print('----- VECINOS A PINTAR --------', controller.neighbors)
-            for node in controller.neighbors:
-                tree.add_edge(controller.current_node.name, node.name, 3)
-                # exit_draw = True
+            # print('----- VECINOS A PINTAR --------', controller.neighbors)
+            # for node in controller.neighbors:
+            # exit_draw = True
             controller.calculate_attr()
             controller.try_neighbors()
             controller.neighbors.clear()
             controller.mov_promising_node_from_open_to_closed()
+            # aqui pintar el nodo que se cerró
             cont += 1
         # RUTA CORTA:
         controller.get_path()
-        # draw tree
-        tree.draw_tree()
+
 

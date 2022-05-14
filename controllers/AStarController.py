@@ -2,6 +2,7 @@ from models.Node import Node
 from models.Edge import Edge
 from views.Graph import Graph
 from operator import attrgetter
+from views.Tree import Tree
 
 import copy
 
@@ -24,7 +25,8 @@ class AStarController:
         self.graph = Graph()
         # self.edge = Node()
         # self.node = Node()
-
+        self.step = 0
+        self.tree = Tree()
     def __repr__(self):
         return str(self.__dict__)
 
@@ -52,12 +54,18 @@ class AStarController:
         node.edges.append(Edge(node, self.get_node(end), cost))
 
     def add_neighbors(self):
+        # pintar nodo actual como cerrado. Si no es el nodo inicial
+        self.paint_close_current_node()
         current_neighbors = self.current_node.get_neighbors()
         print('neighbors del nodo actual ', current_neighbors)
+        # arbol para mostrar solo vecinos del nodo actual
         for node in current_neighbors:
             if node not in self.close_nodes:
                 print('no esta en la lista de cerrados, ', node)
                 self.neighbors.append(node)
+                self.tree.add_edge(self.current_node.name, node.name, node.g)
+        self.step += 1
+        self.tree.draw_tree('step-' + str(self.step))
 
     def try_neighbors(self):
         for node in self.neighbors:
@@ -114,6 +122,14 @@ class AStarController:
 
     def drawGraphs(self):
         self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
+
+    def draw_start_node(self):
+        self.step += 1
+        self.tree.set_node(self.start_node.name, 'start')
+        self.tree.draw_tree('step-' + str(self.step))
+
+    def paint_close_current_node(self):
+        self.tree.set_node(self.current_node.name, 'close')
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
