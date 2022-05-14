@@ -1,6 +1,6 @@
 from controllers.AStarController import AStarController
 from views.Tree import Tree
-from models.Test_step_step import Test
+from models.Test_step_step2 import Test
 
 if __name__ == '__main__':
     # tree = Tree()

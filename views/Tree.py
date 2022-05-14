@@ -12,6 +12,7 @@ class Tree:
         self.u = graphviz.Digraph('unix', format='png',
                                   node_attr={'color': 'lightblue2', 'style': 'filled'})
         self.u.attr(size='6,6')
+        self.edges_view = []
 
     def set_node(self, name: str, type_text: str):
         if type_text == 'start':
@@ -40,3 +41,4 @@ class Tree:
 
     def draw_tree(self):
         self.u.view()
+
