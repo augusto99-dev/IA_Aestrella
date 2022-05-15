@@ -85,6 +85,7 @@ class Test:
 
         # ver filepaths
         print('Filepaths: ', controller.tree.filepaths)
+        controller.launch_window_step()
 
 
 

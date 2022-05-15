@@ -6,6 +6,8 @@ from views.Tree import Tree
 
 import copy
 
+from views.show_tree_test import Step_to_step
+
 
 class AStarController:
     open_nodes = []
@@ -27,6 +29,7 @@ class AStarController:
         # self.node = Node()
         self.step = 0
         self.tree = Tree()
+        self.step_to_step_view = Step_to_step()
     def __repr__(self):
         return str(self.__dict__)
 
@@ -161,6 +164,10 @@ class AStarController:
     def paint_target_node(self):
         self.tree.set_node(self.end_node.name, 'target')
         self.tree.draw_tree('step-' + str(self.step))
+
+    def launch_window_step(self):
+        self.step_to_step_view.steptostep('titulo', self.tree.filepaths[0], 'message')
+
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
