@@ -5,6 +5,7 @@ def steptostep(title,img,message,width=70):
 
     lines = list(map(lambda line:wrap(line, width=width), message.split('\n')))
     height = sum(map(len, lines))
+    
     message = '\n'.join(map('\n'.join, lines))
 
     layout = [
