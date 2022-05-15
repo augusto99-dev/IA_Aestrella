@@ -8,13 +8,16 @@ class Tree:
     color_target = '#70FF1E'
 
     path_file = 'images/tree/'
+    format_file = 'png'
 
     def __init__(self):
-        print('in constructor')
-        self.u = graphviz.Digraph(self.path_file + 'asd', format='png',
+        # print('in constructor')
+        self.u = graphviz.Digraph(self.path_file + 'asd', format=self.format_file,
                                   node_attr={'color': 'lightblue2', 'style': 'filled'})
         self.u.attr(size='6,6')
         self.edges = []
+        # arreglo de imagenes
+        self.filepaths = []
         # self.u = graphviz.Digraph()
 
     def set_name_file(self, filename):
@@ -39,9 +42,44 @@ class Tree:
             node_rename = end_node_name + '.' + str(node_in_edges.quantity)
             self.u.edge(start_node_name, node_rename, label=str(cost))
         else:
-            edge = Edge(end_node_name)
+            edge = Edge(end_node_name, start_node_name)
             self.edges.append(edge)
             self.u.edge(start_node_name, end_node_name, label=str(cost))
+
+    def add_edge_close(self, start_node_name: str, end_node_name: str, cost: float):
+        repeat = []
+
+        node_in_edges: Edge = next((x for x in self.edges if x.node_name == end_node_name), False)
+        # Para evitar pintar nodos que su start y su end son iguales. (Pasa cuando el start sigue en la lista de
+        # ... abiertos pero pintado como cerrado)
+        if node_in_edges is not False:
+            node_in_edges.quantity += 1
+            node_rename = end_node_name + '.' + str(node_in_edges.quantity)
+            self.u.edge(start_node_name, node_rename, label=str(cost))
+            self.set_node(node_rename, 'close')
+        # else:
+        #     # no deberia llegar aqui ya que si ya esta en la lista de cerrado es porque deberia existir uno ya
+        #     edge = Edge(end_node_name)
+        #     self.edges.append(edge)
+        #     self.u.edge(start_node_name, end_node_name, label=str(cost))
+    # def add_edge_close(self, start_node_name: str, end_node_name: str, cost: float):
+
+    def close_others(self, end_node_name: str):
+        # pintar como cerrado los demas nodos de ese nombre
+        node_in_edges: Edge = next((x for x in self.edges if x.node_name == end_node_name), False)
+        if node_in_edges is not False:
+            for i in range(node_in_edges.quantity - 1):
+                self.set_node(end_node_name + '.' + str(node_in_edges.quantity), 'close')
+        # cerrar tambien el que no tiene .n siendo n un valor numerico
+        self.set_node(end_node_name, 'close')
+        # self.u.edge(start_node_name, end_node_name, label=str(cost))
+
+    # def add_edge(self, start_node_name: str, end_node_name: str, cost: float):
+    #     node_in_edges: Edge = next((x for x in self.edges if x.node_name == end_node_name), False)
+    #     if node_in_edges is not False:
+    #         node_in_edges.quantity += 1
+    #         node_rename = end_node_name + '.' + str(node_in_edges.quantity)
+    #         self.u.edge(start_node_name, node_rename, label=str(cost))
 
     def draw_example(self):
         self.set_node('A', 'start')
@@ -58,6 +96,7 @@ class Tree:
     def draw_tree(self, filename):
         self.set_name_file(filename)
         self.u.view()
+        self.filepaths.append(self.path_file + filename + '.' + self.format_file)
 
     def add_end_node(self, node_name):
         end_node_edge = Edge(node_name)
@@ -65,7 +104,8 @@ class Tree:
 
 
 class Edge:
-    def __init__(self, node_name):
+    def __init__(self, node_name, start_node_name):
+        self.start_node_name = start_node_name
         self.node_name = node_name
         self.quantity = 1
 

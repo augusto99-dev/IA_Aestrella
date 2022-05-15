@@ -43,7 +43,7 @@ class Test:
         controller.add_edge("B", "I", 40)
         controller.add_edge("C", "B", 10)
         controller.add_edge("C", "A", 70)
-        controller.add_edge("C", "G", 32)
+        # controller.add_edge("C", "G", 32)
         controller.add_edge("D", "H", 20)
         controller.add_edge("H", "E", 60)
         controller.add_edge("E", "G", 15)
@@ -60,8 +60,6 @@ class Test:
 
         # draw tree
         controller.draw_start_node()
-        # tree.draw_tree()
-        exit_draw = False
         while next((x for x in controller.close_nodes if x.name == controller.end_node.name), False) is False:
             asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
             # obtengo el ultimo elemento de la lista de cerrados.
@@ -78,9 +76,15 @@ class Test:
             controller.try_neighbors()
             controller.neighbors.clear()
             controller.mov_promising_node_from_open_to_closed()
-            # aqui pintar el nodo que se cerró
             cont += 1
+        # pintar nodo objetivo
+        controller.paint_target_node()
+
         # RUTA CORTA:
         controller.get_path()
+
+        # ver filepaths
+        print('Filepaths: ', controller.tree.filepaths)
+
 
 
