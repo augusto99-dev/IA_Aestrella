@@ -51,3 +51,4 @@ class Test:
             cont += 1
         # RUTA CORTA:
         controller.get_path()
+        controller.graph.draw("Ruta Corta")
