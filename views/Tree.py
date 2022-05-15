@@ -100,7 +100,7 @@ class Tree:
 
     def draw_tree(self, filename):
         self.set_name_file(filename)
-        self.u.view()
+        self.u.render(view=False)
         self.filepaths.append(self.path_file + filename + '.' + self.format_file)
 
     def add_end_node(self, node_name):
