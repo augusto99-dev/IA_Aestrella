@@ -1,0 +1,19 @@
+digraph unix {
+	node [color=lightblue2 style=filled]
+	size="6,6"
+	A [fillcolor="#F96141"]
+	A -> B [label=3]
+	A -> C [label=3]
+	A -> D [label=3]
+	A -> E [label=3]
+	D -> H [label=3]
+	E -> G [label=3]
+	G -> C [label=3]
+	H -> E [label=3]
+	B -> C [label=3]
+	B -> F [label=3]
+	B -> I [label=3]
+	E -> G [label=3]
+	F -> K [label=3]
+	G -> C [label=3]
+}
