@@ -3,6 +3,7 @@ from models.Edge import Edge
 from views.Graph import Graph
 from operator import attrgetter
 from views.Tree import Tree
+from views.ViewPrincipal import ViewPrincipal
 
 import copy
 
@@ -35,6 +36,9 @@ class AStarController:
 
     def main(self):
         print('In main of Controller')
+
+
+    nodes = ViewPrincipal.get_node_list()
 
     def get_node(self, name: str) -> Node:
         # print('get node: ', self)
