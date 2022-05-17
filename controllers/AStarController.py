@@ -166,10 +166,17 @@ class AStarController:
         self.tree.draw_tree('step-' + str(self.step))
 
     def launch_window_step(self):
-        cont = 1
-        for filepath in self.tree.filepaths:
-            self.step_to_step_view.steptostep('Paso ' + str(cont), filepath, 'message')
-            cont += 1
+        cont = 0
+        # for filepath in self.tree.filepaths:
+        while cont < len(self.tree.filepaths):
+            action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont], 'message', 50, 50)
+            print('retorno: ', action)
+            if action == 'back':
+                cont -= 1
+            elif action == 'exit':
+                break
+            elif action == 'next':
+                cont += 1
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
