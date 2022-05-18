@@ -227,13 +227,17 @@ class AStarController:
         return self.graph_preview.directory
 
     def get_path_last_step(self):
-        last_path = self.tree.filepaths.pop()
-        self.tree.filepaths.append(last_path)
-        return self.tree.filepaths.pop(last_path)
-
+        self.run_alghoritm()
+        last_path = self.tree.filepaths[-1]
+        return last_path
 
     def run_alghoritm(self):
         # tree: Tree = Tree('start')
+        self.tree = Tree()
+        # estos se deberian setear en la vista:
+        self.start_node = self.nodes[0]
+        self.end_node = self.nodes[-1]
+
         self.close_nodes.append(self.start_node)
         cont = 0
         # pintar nodo inicial
@@ -263,9 +267,14 @@ class AStarController:
         # RUTA CORTA:
         self.get_path()
 
+        # reinicio para lo ultimo
+        self.neighbors = []
+        self.open_nodes = []
+        self.close_nodes = []
+        self.neighbors = []
         # ver filepaths
-        print('Filepaths: ', controller.tree.filepaths)
-        controller.launch_window_step()
+        # print('Filepaths: ', controller.tree.filepaths)
+        # controller.launch_window_step()
 
 
 # if __name__ == '__main__':
