@@ -7,7 +7,7 @@ class GraphPreview:
     color_closed = '#FF6A0F'
     color_target = '#70FF1E'
 
-    path_file = 'images/graph/preview'
+    path_file = 'images/graph/preview/'
     format_file = 'png'
     filename = 'preview-graph'
 
@@ -33,6 +33,9 @@ class GraphPreview:
         self.add_edge('B', 'E', 4)
         self.add_edge('A', 'E', 4)
         self.u.render(view=True)
+
+    def draw_preview(self):
+        self.u.render(view=False)
 
     def add_edge(self, start_node_name: str, end_node_name: str, cost: float):
         self.u.edge(start_node_name, end_node_name, weight=str(cost))

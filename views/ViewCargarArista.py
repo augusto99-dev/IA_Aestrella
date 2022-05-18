@@ -1,6 +1,8 @@
 import PySimpleGUI as sg
 
 from controllers.AStarController import AStarController
+
+
 class CargarArista():
         def __init__(self, controller: AStarController) -> None:
             self.controller = controller

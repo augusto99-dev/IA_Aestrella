@@ -50,6 +50,7 @@ class AStarController:
 
     def add_node(self, node_name: str, node_h: float):
         node = Node(node_name, 0, node_h, 0, None)
+        self.graph_preview.add_node(node_name, node_name)
         self.nodes.append(node)
 
     def get_node(self, name: str) -> Node:
@@ -63,6 +64,8 @@ class AStarController:
     def add_edge(self, start, end, cost, di=True):
         # arista para parte grafica
         self.graph.G.add_edge(start, end, weight=cost)
+        # para el preview
+        self.graph_preview.add_edge(start, end, cost)
         # Si el grafo no es dirigido
         if not di:
             # Agrego otra arista en sentido contrario
@@ -218,6 +221,52 @@ class AStarController:
 
     def draw_graph_preview(self):
         self.graph_preview.draw_example()
+
+    def getPreviewPath(self):
+        self.graph_preview.draw_preview()
+        return self.graph_preview.directory
+
+    def get_path_last_step(self):
+        last_path = self.tree.filepaths.pop()
+        self.tree.filepaths.append(last_path)
+        return self.tree.filepaths.pop(last_path)
+
+
+    def run_alghoritm(self):
+        # tree: Tree = Tree('start')
+        self.close_nodes.append(self.start_node)
+        cont = 0
+        # pintar nodo inicial
+
+        # draw tree
+        self.draw_start_node()
+        while next((x for x in self.close_nodes if x.name == self.end_node.name), False) is False:
+            asd = next((x for x in self.close_nodes if x.name == self.end_node.name), False)
+            # obtengo el ultimo elemento de la lista de cerrados.
+            self.current_node = self.close_nodes.pop()
+            # el anterior lo quita, entonces lo vuelvo a poner
+            self.close_nodes.append(self.current_node)
+            self.add_neighbors()
+            # pintar vecinos
+            # if exit_draw is False:
+            # print('----- VECINOS A PINTAR --------', controller.neighbors)
+            # for node in controller.neighbors:
+            # exit_draw = True
+            self.calculate_attr()
+            self.try_neighbors()
+            self.neighbors.clear()
+            self.mov_promising_node_from_open_to_closed()
+            cont += 1
+        # pintar nodo objetivo
+        self.paint_target_node()
+
+        # RUTA CORTA:
+        self.get_path()
+
+        # ver filepaths
+        print('Filepaths: ', controller.tree.filepaths)
+        controller.launch_window_step()
+
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
