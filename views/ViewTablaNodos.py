@@ -1,25 +1,30 @@
 import PySimpleGUI as sg
 from ViewCargarNodos import CargarNodos
 
-nodos_array = []
-headings = ['NODO', 'HEURISTICA']
-view_cargarnodo = CargarNodos()
-layout = [
+class TablaNodos:
+
+    def __init__(self) -> None:
+        pass
+
+    nodos_array = []
+    headings = ['NODO', 'HEURISTICA']
+    view_cargarnodo = CargarNodos()
+    layout = [
         [sg.Table(values=nodos_array, headings=headings, max_col_width=35,
-                    auto_size_columns=True,
-                    display_row_numbers=False,
-                    justification='right',
-                    num_rows=10,
-                    enable_events=True,
-                    key='-CONTACT_TABLE-',
-                    row_height=35,
-                    tooltip='Reservations Table')],
+                  auto_size_columns=True,
+                  display_row_numbers=False,
+                  justification='right',
+                  num_rows=10,
+                  enable_events=True,
+                  key='-CONTACT_TABLE-',
+                  row_height=35,
+                  tooltip='Reservations Table')],
         [sg.Button('Insertar'), sg.Button('Siguiente'), sg.Exit()]
     ]
 
-window = sg.Window("Tabla",layout, modal=True)
+    window = sg.Window("Tabla", layout, modal=True)
 
-while True:
+    while True:
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
@@ -32,7 +37,7 @@ while True:
             selected_row = nodos_array[selected_index]
             popup_message = "Nodo: " + selected_row[0] + "\n" + "Heuristica: " + selected_row[1]
             sg.popup(popup_message)
-            print(selected_row)
-          
-        
-window.close()
+
+    # window.close()
+    def getLayout(self):
+        return self.layout

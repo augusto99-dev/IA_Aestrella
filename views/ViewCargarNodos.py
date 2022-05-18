@@ -1,8 +1,12 @@
 import PySimpleGUI as sg
 
+from controllers.AStarController import AStarController
+
+
 class CargarNodos():
-        def __init__(self) -> None:
-            pass
+        def __init__(self, controller: AStarController) -> None:
+            self.controller = controller
+
         def create(self):
                 layout = [[sg.Text("Nodo"), sg.Input(key='-Nodo-', do_not_clear=True, size=(10, 1))],
                         [sg.Text("Heuristica"), sg.Input(key='-Heuristica-', do_not_clear=True, size=(10, 1))],
@@ -15,6 +19,7 @@ class CargarNodos():
                                 break
                         if event == 'Insertar':
                                 nodo = [values['-Nodo-'], values['-Heuristica-']]
+                                self.controller.add_node(values['-Nodo-'], values['-Heuristica-'])
                                 break
                 window.close()
                 return nodo

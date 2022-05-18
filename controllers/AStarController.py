@@ -36,6 +36,10 @@ class AStarController:
     def main(self):
         print('In main of Controller')
 
+    def add_node(self, node_name: str, node_h: float):
+        node = Node(node_name, 0, node_h, 0, None)
+        self.nodes.append(node)
+
     def get_node(self, name: str) -> Node:
         # print('get node: ', self)
         node_enc = None
