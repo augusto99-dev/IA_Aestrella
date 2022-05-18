@@ -57,6 +57,16 @@ class Tree:
             self.u.edge(start_node_name, node_rename, label=str(cost))
             self.set_node(node_rename, 'close')
 
+    def format_message_tree(self, current_node_text: str, neighbors_text: str, node_try_text: str):
+        if neighbors_text == '':
+            neighbors_text = ' (Ninguno) '
+        formatted_message = current_node_text + neighbors_text + node_try_text
+        self.add_message_in_tree(formatted_message)
+
+    def add_message_in_tree(self, message: str):
+        self.u.attr(label='\n \n' + message + '\n \n')
+        self.u.attr(fontsize='9')
+
     def close_others(self, end_node_name: str):
         # pintar como cerrado los demas nodos de ese nombre
         node_in_edges: Edge = next((x for x in self.edges if x.node_name == end_node_name), False)

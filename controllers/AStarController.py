@@ -24,6 +24,8 @@ class AStarController:
 
     path = []
 
+    message_step = ''
+
     def __init__(self):
         self.graph = Graph()
         # self.edge = Node()
@@ -79,12 +81,23 @@ class AStarController:
                 self.neighbors.append(node)
 
     def try_neighbors(self):
-        self.paint_close_node(self.current_node.name)
+        current_node_text = ''
+        neighbors_text = ''
+        node_try_text = ''
+        # si tiene vecinos lo marco como recorrido, sino no lo pinto
+        if len(self.neighbors) > 0:
+            self.paint_close_node(self.current_node.name)
+
+        current_node_text = current_node_text + 'NODO ACTUAL: (' + self.current_node.name + ') \n'
+        current_node_text = current_node_text + 'Se recorren sus vecinos: '
         for node in self.neighbors:
+            neighbors_text = neighbors_text + node.name + ' ;'
             if any(x.name == node.name for x in self.open_nodes) is False and node not in self.close_nodes:
                 copy_node = copy.copy(node)  # copia superficial
                 self.open_nodes.append(copy_node)
                 # print('Copiado nodo vecino en la lista de abiertos')
+                # self.tree.add_message_in_tree('Recorro los vecinos del nodo actual.')
+
                 self.tree.add_edge(self.current_node.name, node.name, node.g)
 
             else:
@@ -96,18 +109,24 @@ class AStarController:
                     # print('si no es none')
                     # print('node.g ', node.g)
                     # print('node_in_open.g ', node_in_open.g)
+                    self.message_step = self.message_step + '\n El nodo ' + node_in_open.name + ' ya se encuenta en la lista de abiertos. '
                     if node.g < node_in_open.g:
                         # self.tree.add_edge(self.current_node.name, node.name, node.g)
                         # cierro los otros que estan abiertos
                         self.tree.close_others(node.name)
                         # coloco el nuevo que quedara abierto
+                        # self.tree.add_message_in_tree(
+                        #    'El nodo ya existe en otro lado pero este mejora a los demas abiertos \n '
+                        #    'Por ello se recorre queda abierto y se cierran los otros')
+                        node_try_text = node_try_text + '\n El nodo ' + node.name + ' mejora a los demas iguales abiertos \n '\
+                                                                'Por ello se recorre queda abierto y se cierran los otros iguales. \n'
                         self.tree.add_edge(self.current_node.name, node.name, node.g)
                         # print('El g del nodo de vecino es menor al g del nodo de abierto')
                         # actualizo atributos del nodo de la lista de abierto con el de vecino
 
-                        print('antes de actualizar la lista de abiertos (deberia estar en cerrados este nodo luego )')
-                        print('\n ', node_in_open.name)
-                        print('\n con G=', node_in_open.g)
+                        # print('antes de actualizar la lista de abiertos (deberia estar en cerrados este nodo luego )')
+                        # print('\n ', node_in_open.name)
+                        # print('\n con G=', node_in_open.g)
                         # node_in_open = node
                         node_in_open.g = node.g
                         node_in_open.h = node.h
@@ -118,16 +137,17 @@ class AStarController:
                             print('\n ', node2.name)
                             print('\n ', node2.g)
                     else:
-                        # aqui deberia colocar cerrado porque no mejora al que estaba en abiertos
-                        print('\n NO MEJORO EL NODO: ', node.name)
-                        print('\n EL CURRENT: ', self.current_node.name)
-                        print('\n vecinos del actual: ')
-                        for node2 in self.neighbors:
-                            print('', node2.name)
+                        # aqui deberia pintar cerrado porque no mejora al que estaba en abiertos
+                        # self.tree.add_message_in_tree('El nodo ya existe en otro lado pero no mejora al que ya estaba abierto \n '
+                        #                              'Por ello se recorre pero queda cerrado')
+                        node_try_text = node_try_text + '\n El nodo ' + node.name + ' no mejora a los demas iguales ya abiertos. ' \
+                                                                                         'Es por ello que se cierra. \n'
                         self.tree.add_edge_close(self.current_node.name, node.name, node.g)
                         # self.tree.add_edge(self.current_node.name, node.name, node.g)
         self.step += 1
+        self.tree.format_message_tree(current_node_text, neighbors_text, node_try_text)
         self.tree.draw_tree('step-' + str(self.step))
+        self.message_step = ''
 
     # if any(x.name == "B" for x in self.open_nodes):
     #
@@ -167,6 +187,7 @@ class AStarController:
 
     def draw_start_node(self):
         self.step += 1
+        self.tree.add_message_in_tree('Nodo inicial indicado por el usuario.')
         self.tree.set_node(self.start_node.name, 'start')
         self.tree.draw_tree('step-' + str(self.step))
 
@@ -175,6 +196,8 @@ class AStarController:
 
     def paint_target_node(self):
         self.tree.set_node(self.end_node.name, 'target')
+        self.tree.add_message_in_tree('El nodo ' + self.end_node.name + ' es el mas prometedor y '
+                                                                        'objetivo. Fin del proceso')
         self.tree.draw_tree('step-' + str(self.step))
 
     def launch_window_step(self):
