@@ -1,3 +1,4 @@
+from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
 from views.Graph import Graph
@@ -26,11 +27,13 @@ class AStarController:
     message_step = ''
 
     def __init__(self):
+        # borra despues este
         self.graph = Graph()
         # self.edge = Node()
         # self.node = Node()
         self.step = 0
         self.tree = Tree()
+        self.graph_preview = GraphPreview()
         self.step_to_step_view = Step_to_step()
     def __repr__(self):
         return str(self.__dict__)
@@ -205,6 +208,9 @@ class AStarController:
                 break
             elif action == 'next':
                 cont += 1
+
+    def draw_graph_preview(self):
+        self.graph_preview.draw_example()
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
