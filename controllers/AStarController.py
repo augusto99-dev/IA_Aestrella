@@ -16,6 +16,7 @@ class AStarController:
     neighbors = []
 
     nodes = []
+    edges = []
 
     current_node: Node = None
     start_node: Node = None
@@ -32,6 +33,12 @@ class AStarController:
         self.step_to_step_view = Step_to_step()
     def __repr__(self):
         return str(self.__dict__)
+
+    def set_nodes(self,nodes_array):
+        self.nodes = nodes_array
+
+    def set_edges(self,edges_array):
+        self.edges = edges_array
 
     def main(self):
         print('In main of Controller')
