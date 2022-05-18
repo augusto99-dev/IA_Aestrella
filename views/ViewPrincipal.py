@@ -4,6 +4,7 @@ import os.path
 from views.ViewCargarNodos import CargarNodos
 from views.ViewCargarArista import CargarArista
 from views.ShowResult import ShowResult
+from views.ViewOrigenDestino import CargarOrigenDestino
 from controllers.AStarController import AStarController
 
 
@@ -22,6 +23,7 @@ class ViewPrincipal():
         self.controller = controller
         self.view_cargarnodo = CargarNodos(controller)
         self.view_cargararista = CargarArista(controller)
+        self.view_cargarOrigen = CargarOrigenDestino(controller)
         self.view_showresult = ShowResult()
         self.img_preview = "descarga.png"
         self.layout2 = [
@@ -46,9 +48,7 @@ class ViewPrincipal():
                       key='-EDGE_TABLE-',
                       row_height=35,
                       tooltip='Tabla de Aristas')],
-            [sg.Text("Nodo Origen"), sg.Combo(self.combo_array, key='-nodo_origen-', size=(10, 1))],
-            [sg.Text("Nodo Destino: "), sg.Combo(self.combo_array, key='-nodo_destino-', size=(10, 1))],
-            [sg.Button('Insertar Arista'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
         ]
         self.layout4 = [
             [sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)],
@@ -83,9 +83,8 @@ class ViewPrincipal():
             elif event == 'Cargar Relaciones':
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=True)
-                window['-nodo_origen-'].update(self.combo_array)
-                window['-nodo_destino-'].update(self.combo_array)
-                print('combo arrat ', self.combo_array)
+            elif event == 'Definir Origen/Destino':
+                self.view_cargarOrigen.create(self.combo_array)
             elif event == 'Insertar':
                 nodo = self.view_cargarnodo.create()
                 print('nodo: ', nodo)
@@ -118,7 +117,6 @@ class ViewPrincipal():
                 window['-COL3-'].update(visible=False)
                 window['-COL4-'].update(visible=True)
                 window['-IMG_PREV-'].update(self.controller.getPreviewPath())
-
             elif event == 'Paso a paso':
                 self.view_showresult.showresult("Paso a paso", self.img, "aa")
             elif event == 'Resultado Directo':
