@@ -10,4 +10,4 @@ if __name__ == '__main__':
     main_win = ViewPrincipal(controller)
     main_win.launch_view()
     # test = Test(controller)
-    test.run_test(controller)
+    # test.run_test(controller)
