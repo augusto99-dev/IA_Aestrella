@@ -37,14 +37,15 @@ class Test:
         controller.add_edge("E", "Z", 5)
 
     def run_test(self, controller: AStarController):
-        tree: Tree = Tree()
+        # tree: Tree = Tree('start')
         controller.close_nodes.append(controller.start_node)
         cont = 0
         # pintar nodo inicial
-        tree.set_node(controller.start_node.name, 'start')
-        exit_draw = False
+
+        # draw tree
+        controller.draw_start_node()
         while next((x for x in controller.close_nodes if x.name == controller.end_node.name), False) is False:
-            asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
+            # asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
             # obtengo el ultimo elemento de la lista de cerrados.
             controller.current_node = controller.close_nodes.pop()
             # el anterior lo quita, entonces lo vuelvo a poner
@@ -52,18 +53,52 @@ class Test:
             controller.add_neighbors()
             # pintar vecinos
             # if exit_draw is False:
-            print('----- VECINOS A PINTAR --------', controller.neighbors)
-            for node in controller.neighbors:
-                if exit_draw is False:
-                    tree.add_edge(controller.current_node.name, node.name, 3)
-                    # exit_draw = True
+            # print('----- VECINOS A PINTAR --------', controller.neighbors)
+            # for node in controller.neighbors:
+            # exit_draw = True
             controller.calculate_attr()
             controller.try_neighbors()
             controller.neighbors.clear()
             controller.mov_promising_node_from_open_to_closed()
             cont += 1
+        # pintar nodo objetivo
+        controller.paint_target_node()
+
         # RUTA CORTA:
         controller.get_path()
-        # draw tree
-        tree.draw_tree()
+
+        # ver filepaths
+        print('Filepaths: ', controller.tree.filepaths)
+        controller.launch_window_step()
+
+    # def run_test(self, controller: AStarController):
+    #     tree: Tree = Tree()
+    #     controller.close_nodes.append(controller.start_node)
+    #     cont = 0
+    #     # pintar nodo inicial
+    #     tree.set_node(controller.start_node.name, 'start')
+    #     exit_draw = False
+    #     while next((x for x in controller.close_nodes if x.name == controller.end_node.name), False) is False:
+    #         asd = next((x for x in controller.close_nodes if x.name == controller.end_node.name), False)
+    #         # obtengo el ultimo elemento de la lista de cerrados.
+    #         controller.current_node = controller.close_nodes.pop()
+    #         # el anterior lo quita, entonces lo vuelvo a poner
+    #         controller.close_nodes.append(controller.current_node)
+    #         controller.add_neighbors()
+    #         # pintar vecinos
+    #         # if exit_draw is False:
+    #         print('----- VECINOS A PINTAR --------', controller.neighbors)
+    #         for node in controller.neighbors:
+    #             if exit_draw is False:
+    #                 tree.add_edge(controller.current_node.name, node.name, 3)
+    #                 # exit_draw = True
+    #         controller.calculate_attr()
+    #         controller.try_neighbors()
+    #         controller.neighbors.clear()
+    #         controller.mov_promising_node_from_open_to_closed()
+    #         cont += 1
+    #     # RUTA CORTA:
+    #     controller.get_path()
+    #     # draw tree
+    #     tree.draw_tree()
 

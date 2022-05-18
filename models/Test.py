@@ -52,3 +52,7 @@ class Test:
         # RUTA CORTA:
         controller.get_path()
         controller.graph.draw("Ruta Corta")
+
+        # ver filepaths
+        print('Filepaths: ', controller.tree.filepaths)
+        controller.launch_window_step()

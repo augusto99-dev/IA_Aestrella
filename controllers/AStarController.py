@@ -62,8 +62,9 @@ class AStarController:
         # print('neighbors del nodo actual ', current_neighbors)
         # arbol para mostrar solo vecinos del nodo actual
         for node in current_neighbors:
-            if node not in self.close_nodes:
-                # print('no esta en la lista de cerrados, ', node)
+            node_in_close: Node = next((x for x in self.close_nodes if x.name == node.name), False)
+            # si no esta en la lista de cerrados lo coloco
+            if node_in_close is False:
                 self.neighbors.append(node)
 
     def try_neighbors(self):
@@ -96,11 +97,11 @@ class AStarController:
                         print('antes de actualizar la lista de abiertos (deberia estar en cerrados este nodo luego )')
                         print('\n ', node_in_open.name)
                         print('\n con G=', node_in_open.g)
-                        node_in_open = node
-                        # node_in_open.g = node.g
-                        # node_in_open.h = node.h
-                        # node_in_open.f = node.f
-                        # node_in_open.predecessor = node.predecessor
+                        # node_in_open = node
+                        node_in_open.g = node.g
+                        node_in_open.h = node.h
+                        node_in_open.f = node.f
+                        node_in_open.predecessor = node.predecessor
                         print('actualizo LA LISTA DE ABIERTOS G.vec<G.abiet. ')
                         for node2 in self.neighbors:
                             print('\n ', node2.name)

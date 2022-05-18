@@ -49,25 +49,13 @@ class Tree:
             self.u.edge(start_node_name, end_node_name, label=str(cost))
 
     def add_edge_close(self, start_node_name: str, end_node_name: str, cost: float):
-        repeat = []
-        node_in_edges_repeat: Edge = next((x for x in self.edges if x.start_node_name == start_node_name and x.end_node_name_orig == end_node_name), False)
-        # si ya existe uno con el mismo comienzo y final. No lo tengo en cuenta y salgo
-        if node_in_edges_repeat is not False:
-            return
         node_in_edges: Edge = next((x for x in self.edges if x.node_name == end_node_name), False)
-        # Para evitar pintar nodos que su start y su end son iguales. (Pasa cuando el start sigue en la lista de
-        # ... abiertos pero pintado como cerrado)
+        # si ya existe agregarle su repeticion
         if node_in_edges is not False:
             node_in_edges.quantity += 1
             node_rename = end_node_name + '.' + str(node_in_edges.quantity)
             self.u.edge(start_node_name, node_rename, label=str(cost))
             self.set_node(node_rename, 'close')
-        # else:
-        #     # no deberia llegar aqui ya que si ya esta en la lista de cerrado es porque deberia existir uno ya
-        #     edge = Edge(end_node_name)
-        #     self.edges.append(edge)
-        #     self.u.edge(start_node_name, end_node_name, label=str(cost))
-    # def add_edge_close(self, start_node_name: str, end_node_name: str, cost: float):
 
     def close_others(self, end_node_name: str):
         # pintar como cerrado los demas nodos de ese nombre
