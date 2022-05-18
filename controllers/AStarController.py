@@ -44,6 +44,12 @@ class AStarController:
 
     def set_edges(self,edges_array):
         self.edges = edges_array
+    
+    def set_origin(self, origin):
+        self.end_node = self.get_node(origin)
+    
+    def set_final(self,final):
+        self.start_node = self.get_node(final)
 
     def main(self):
         print('In main of Controller')
