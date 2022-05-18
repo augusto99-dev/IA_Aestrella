@@ -19,6 +19,6 @@ class CargarOrigenDestino():
                         if event == 'Aceptar':
                                 nodos = [values['-nodo_origen-'], values['-nodo_destino-']]
                                 self.controller.set_origin(nodos[0])
-                                self.controller.set_origin(nodos[1])
+                                self.controller.set_final(nodos[1])
                                 break
                 window.close()

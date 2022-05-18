@@ -46,10 +46,14 @@ class AStarController:
         self.edges = edges_array
     
     def set_origin(self, origin):
-        self.end_node = self.get_node(origin)
+        print('llega ... ', origin)
+        self.start_node = self.get_node(origin)
+        print('START : ', self.start_node)
     
     def set_final(self,final):
-        self.start_node = self.get_node(final)
+        print('llega final ... ', final)
+        self.end_node = self.get_node(final)
+        print('fin : ', self.end_node)
 
     def main(self):
         print('In main of Controller')
@@ -241,8 +245,10 @@ class AStarController:
         # tree: Tree = Tree('start')
         self.tree = Tree()
         # estos se deberian setear en la vista:
-        self.start_node = self.nodes[0]
-        self.end_node = self.nodes[-1]
+        print('ALG START: ', self.start_node)
+        print('ALG END ', self.end_node)
+        # self.start_node = self.nodes[0]
+        # self.end_node = self.nodes[-1]
 
         self.close_nodes.append(self.start_node)
         cont = 0

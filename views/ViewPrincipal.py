@@ -118,6 +118,10 @@ class ViewPrincipal():
                 window['-COL4-'].update(visible=True)
                 window['-IMG_PREV-'].update(self.controller.getPreviewPath())
             elif event == 'Paso a paso':
+                # ver filepaths
+                # print('Filepaths: ', controller.tree.filepaths)
+                self.controller.run_alghoritm()
+                self.controller.launch_window_step()
                 self.view_showresult.showresult("Paso a paso", self.img, "aa")
             elif event == 'Resultado Directo':
                 img_path = self.controller.get_path_last_step()
