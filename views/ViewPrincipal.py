@@ -36,7 +36,7 @@ class ViewPrincipal():
                       key='-NODE_TABLE-',
                       row_height=35,
                       tooltip='Tabla de Nodos')],
-            [sg.Button('Insertar'), sg.Button('Cargar Relaciones'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar'), sg.Button('Cargar Relaciones'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
         ]
         self.layout3 = [
                     [sg.Table(values=self.aristas_array, headings=self.headings_arista, max_col_width=35,
@@ -48,7 +48,7 @@ class ViewPrincipal():
                       key='-EDGE_TABLE-',
                       row_height=35,
                       tooltip='Tabla de Aristas')],
-            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
         ]
         self.layout4 = [
             [sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)],
@@ -80,9 +80,16 @@ class ViewPrincipal():
             elif event == 'Cargar Datos':
                 window['-COL1-'].update(visible=False)
                 window['-COL2-'].update(visible=True)
+            elif event == 'Cargar Nodos Aleatoriamente':
+                self.nodos_array = self.controller.random_nodes()
+                window['-NODE_TABLE-'].update(self.nodos_array)
+                for nodo in self.nodos_array:
+                    self.combo_array.append(nodo[0])
             elif event == 'Cargar Relaciones':
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=True)
+            elif event == 'Cargar Aristas Aleatoriamente':
+                window['-EDGE_TABLE-'].update(self.controller.random_edges())
             elif event == 'Definir Origen/Destino':
                 self.view_cargarOrigen.create(self.combo_array)
             elif event == 'Insertar':

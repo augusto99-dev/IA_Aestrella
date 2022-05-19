@@ -1,3 +1,5 @@
+from ast import List
+import random
 from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
@@ -54,6 +56,7 @@ class AStarController:
         print('llega final ... ', final)
         self.end_node = self.get_node(final)
         print('fin : ', self.end_node)
+    
 
     def main(self):
         print('In main of Controller')
@@ -293,4 +296,39 @@ class AStarController:
 #     aStar = AStarController()
 #     aStar.main()
 
-# def get_node_in_list(self):
+# def get_node_in_list(self):,
+
+#Funcion de carga de nodo de forma aleatoria
+    def random_nodes(self)-> List:
+        #Lista de nombres posibles de nodos
+        name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
+        #Crea una lista de 15 nombres aleatorios a partir de la lista de nombres
+        elec_list = random.sample(name_list, 15)
+        nodo = []
+        node_list= []
+        #Por cada nombre en la lista cre el objeto nodo y devuelve la lista a la vista
+        for i in elec_list:
+            #Heuritica aleatoria entre 1 y 60
+            heurist = random.randint(1, 60)
+            nodo.append(i)
+            nodo.append(heurist)
+            self.add_node(i,heurist)
+            self.nodes.append(nodo)
+            node_list.append(nodo)
+            nodo = []
+        return node_list
+    
+    def random_edges(self)-> List:
+        elect_start = random.sample(self.nodes.keys(),15)
+        elect_final = random.sample(self.nodes.keys(), 15)
+        print(elect_start)
+        edge = []
+        for i in range(15):
+            cost = random.randint(1, 60)
+            edge.append(elect_start[i])
+            edge.append(elect_final[i])
+            edge.append(cost)
+            self.add_edge(self.get_node(elect_start[i]),self.get_node(elect_final[i]),cost)
+            self.edges.append(edge)
+            edge = []
+        return self.edges
