@@ -313,22 +313,22 @@ class AStarController:
             nodo.append(i)
             nodo.append(heurist)
             self.add_node(i,heurist)
-            self.nodes.append(nodo)
             node_list.append(nodo)
             nodo = []
         return node_list
     
     def random_edges(self)-> List:
-        elect_start = random.sample(self.nodes.keys(),15)
-        elect_final = random.sample(self.nodes.keys(), 15)
+        elect_start = random.sample(self.nodes,15)
+        elect_final = random.sample(self.nodes, 15)
         print(elect_start)
         edge = []
+        edge_list = []
         for i in range(15):
             cost = random.randint(1, 60)
-            edge.append(elect_start[i])
-            edge.append(elect_final[i])
+            edge.append(elect_start[i].name)
+            edge.append(elect_final[i].name)
             edge.append(cost)
-            self.add_edge(self.get_node(elect_start[i]),self.get_node(elect_final[i]),cost)
-            self.edges.append(edge)
+            self.add_edge(elect_start[i].name,elect_final[i].name,cost)
+            edge_list.append(edge)
             edge = []
-        return self.edges
+        return edge_list

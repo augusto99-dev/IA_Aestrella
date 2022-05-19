@@ -15,7 +15,7 @@ class GraphPreview:
         # print('in constructor')
         # self.u = graphviz.Digraph(self.path_file + 'asd', format=self.format_file,
         #                          node_attr={'color': 'lightblue2', 'style': 'filled'})
-        self.u = graphviz.Graph('G', filename=self.filename, engine='sfdp', format=self.format_file, directory=self.path_file)
+        self.u = graphviz.Graph('G', filename= self.filename + '.' + self.format_file, engine='sfdp', format=self.format_file, directory=self.path_file)
         self.u.attr(size='6,6')
         self.directory = self.path_file + self.filename + '.' + self.format_file
 
