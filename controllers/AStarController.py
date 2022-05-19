@@ -317,18 +317,35 @@ class AStarController:
             nodo = []
         return node_list
     
-    def random_edges(self)-> List:
-        elect_start = random.sample(self.nodes,15)
-        elect_final = random.sample(self.nodes, 15)
-        print(elect_start)
+    # def random_edges(self) -> List:
+    #     elect_start = random.choice(self.nodes, 15)
+    #     elect_final = random.choice(self.nodes, 15)
+    #     print(elect_start)
+    #     edge = []
+    #     edge_list = []
+    #     for i in range(15):
+    #         cost = random.randint(1, 60)
+    #         edge.append(elect_start[i].name)
+    #         edge.append(elect_final[i].name)
+    #         edge.append(cost)
+    #         self.add_edge(elect_start[i].name,elect_final[i].name,cost)
+    #         edge_list.append(edge)
+    #         edge = []
+    #     return edge_list
+
+    def random_edges(self) -> List:
         edge = []
         edge_list = []
         for i in range(15):
             cost = random.randint(1, 60)
-            edge.append(elect_start[i].name)
-            edge.append(elect_final[i].name)
-            edge.append(cost)
-            self.add_edge(elect_start[i].name,elect_final[i].name,cost)
+            node_start = self.nodes[random.randint(0, len(self.nodes) -1)]
+            node_end = self.nodes[random.randint(0, len(self.nodes) -1)]
+            print('NODO RANDOM START: ', node_start)
+            print('NODO RANDOM END: ', node_end)
+            print('cost : ', cost)
+            self.add_edge(node_start.name, node_end.name, cost)
+            edge.append(node_start.name)
+            edge.append(node_end.name)
             edge_list.append(edge)
             edge = []
         return edge_list
