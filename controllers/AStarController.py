@@ -5,6 +5,8 @@ from models.Node import Node
 from models.Edge import Edge
 from views.Graph import Graph
 from operator import attrgetter
+
+from views.ShowResult import ShowResult
 from views.Tree import Tree
 
 import copy
@@ -38,6 +40,7 @@ class AStarController:
         self.tree = Tree()
         self.graph_preview = GraphPreview()
         self.step_to_step_view = Step_to_step()
+        self.view_showresult = ShowResult()
     def __repr__(self):
         return str(self.__dict__)
 
@@ -222,7 +225,9 @@ class AStarController:
     def launch_window_step(self):
         cont = 0
         # for filepath in self.tree.filepaths:
-        while cont < len(self.tree.filepaths):
+        print('filepaths: ', self.tree.filepaths)
+        print('filepath size ', len(self.tree.filepaths))
+        while cont < len(self.tree.filepaths) - 1:
             action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont], 'message', 50, 50)
             print('retorno: ', action)
             if action == 'back':
@@ -231,6 +236,10 @@ class AStarController:
                 break
             elif action == 'next':
                 cont += 1
+
+    def launch_window_direct_result(self):
+        img_path = self.get_path_last_step()
+        self.view_showresult.showresult("Resultado Directo", img_path, "")
 
     def draw_graph_preview(self):
         self.graph_preview.draw_example()
