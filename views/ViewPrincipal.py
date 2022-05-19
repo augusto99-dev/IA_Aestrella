@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import os.path
 from views.ViewCargarNodos import CargarNodos
 from views.ViewCargarArista import CargarArista
-from views.ShowResult import ShowResult
+# from views.ShowResult import ShowResult
 from views.ViewOrigenDestino import CargarOrigenDestino
 from controllers.AStarController import AStarController
 
@@ -24,7 +24,7 @@ class ViewPrincipal():
         self.view_cargarnodo = CargarNodos(controller)
         self.view_cargararista = CargarArista(controller)
         self.view_cargarOrigen = CargarOrigenDestino(controller)
-        self.view_showresult = ShowResult()
+
         self.img_preview = "descarga.png"
         self.layout2 = [
             [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=35,
@@ -36,7 +36,7 @@ class ViewPrincipal():
                       key='-NODE_TABLE-',
                       row_height=35,
                       tooltip='Tabla de Nodos')],
-            [sg.Button('Insertar'), sg.Button('Cargar Relaciones'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar'), sg.Button('Siguiente'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
         ]
         self.layout3 = [
                     [sg.Table(values=self.aristas_array, headings=self.headings_arista, max_col_width=35,
@@ -71,7 +71,8 @@ class ViewPrincipal():
         return self.nodos_array
 
     def launch_view(self):
-        window = sg.Window("TP Final Inteligencia Artificial", self.layout, ).Finalize()
+        window = sg.Window("TP Final Inteligencia Artificial", self.layout, resizable=True).Finalize()
+        window.Maximize()
 
         while True:
             event, values = window.read()
@@ -85,7 +86,8 @@ class ViewPrincipal():
                 window['-NODE_TABLE-'].update(self.nodos_array)
                 for nodo in self.nodos_array:
                     self.combo_array.append(nodo[0])
-            elif event == 'Cargar Relaciones':
+            # Cargar relaciones
+            elif event == 'Siguiente':
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=True)
             elif event == 'Cargar Aristas Aleatoriamente':
@@ -129,9 +131,9 @@ class ViewPrincipal():
                 # print('Filepaths: ', controller.tree.filepaths)
                 self.controller.run_alghoritm()
                 self.controller.launch_window_step()
-                self.view_showresult.showresult("Paso a paso", self.img, "aa")
+                # self.view_showresult.showresult("Paso a paso", self.img, "aa")
             elif event == 'Resultado Directo':
-                img_path = self.controller.get_path_last_step()
-                self.view_showresult.showresult("Resultado Directo", img_path, "")
+               self.controller.launch_window_direct_result()
+
             # window.close()
 

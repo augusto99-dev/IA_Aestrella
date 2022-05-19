@@ -1,7 +1,7 @@
 from textwrap import wrap
 import PySimpleGUI as sg
 
-from controllers.AStarController import AStarController
+# from controllers.AStarController import AStarController
 
 
 class ShowResult():
@@ -20,7 +20,7 @@ class ShowResult():
         layout = [
             [sg.Image(img, expand_x=True)],
             [sg.Text(message, size=(width, height), justification='center', expand_x=True)],
-            [sg.Button('Next Step')]
+            [sg.Button('Cerrar')]
         ]
 
         sg.Window(title, layout, keep_on_top=True, modal=True).read(close=2000)
