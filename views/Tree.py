@@ -97,7 +97,7 @@ class Tree:
         self.u.view()
 
     def draw_tree(self, filename):
-        self.set_name_file(filename + '.' + self.format_file)
+        self.set_name_file(filename)
         self.u.render(view=False)
         self.filepaths.append(self.path_file + filename + '.' + self.format_file)
 

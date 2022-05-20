@@ -15,8 +15,9 @@ class GraphPreview:
         # print('in constructor')
         # self.u = graphviz.Digraph(self.path_file + 'asd', format=self.format_file,
         #                          node_attr={'color': 'lightblue2', 'style': 'filled'})
-        self.u = graphviz.Graph('G', filename= self.filename + '.' + self.format_file, engine='sfdp', format=self.format_file, directory=self.path_file)
+        self.u = graphviz.Digraph('G', filename= self.filename, engine='sfdp', format=self.format_file, directory=self.path_file)
         self.u.attr(size='6,6')
+        self.u.attr()
         self.directory = self.path_file + self.filename + '.' + self.format_file
 
     def draw_example(self):
@@ -38,7 +39,7 @@ class GraphPreview:
         self.u.render(view=False)
 
     def add_edge(self, start_node_name: str, end_node_name: str, cost: float):
-        self.u.edge(start_node_name, end_node_name, weight=str(cost))
+        self.u.edge(start_node_name, end_node_name, label=str(cost))
 
     def add_node(self, key_node: str, node_name: str):
         self.u.node(key_node, node_name)

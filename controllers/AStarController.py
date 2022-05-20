@@ -33,7 +33,7 @@ class AStarController:
 
     def __init__(self):
         # borra despues este
-        self.graph = Graph()
+        # self.graph = Graph()
         # self.edge = Node()
         # self.node = Node()
         self.step = 0
@@ -79,13 +79,13 @@ class AStarController:
 
     def add_edge(self, start, end, cost, di=True):
         # arista para parte grafica
-        self.graph.G.add_edge(start, end, weight=cost)
+        # self.graph.G.add_edge(start, end, weight=cost)
         # para el preview
         self.graph_preview.add_edge(start, end, cost)
         # Si el grafo no es dirigido
-        if not di:
+        # if not di:
             # Agrego otra arista en sentido contrario
-            self.graph.G.add_edge(end, start, weight=cost)
+            # self.graph.G.add_edge(end, start, weight=cost)
         # parte logica
         # obtengo el nodo para guardar sus aristas
         node = self.get_node(start)
@@ -113,10 +113,13 @@ class AStarController:
         current_node_text = current_node_text + 'NODO ACTUAL: (' + self.current_node.name + ') \n'
         current_node_text = current_node_text + 'Se recorren sus vecinos: '
         for node in self.neighbors:
+            print('VECINOS DEL NODO: ', self.current_node.name)
+            print(node.name)
             neighbors_text = neighbors_text + node.name + ' ;'
-            if any(x.name == node.name for x in self.open_nodes) is False and node not in self.close_nodes:
+            if any(x.name == node.name for x in self.open_nodes) is False and any(x.name == node.name for x in self.close_nodes) is False:
                 copy_node = copy.copy(node)  # copia superficial
                 self.open_nodes.append(copy_node)
+                print('copiado a la lista de abiertos: ', node.name)
                 # print('Copiado nodo vecino en la lista de abiertos')
                 # self.tree.add_message_in_tree('Recorro los vecinos del nodo actual.')
 
@@ -166,6 +169,9 @@ class AStarController:
                                                                                          'Es por ello que se cierra. \n'
                         self.tree.add_edge_close(self.current_node.name, node.name, node.g)
                         # self.tree.add_edge(self.current_node.name, node.name, node.g)
+                else:
+                        print('no esta en la lista de abiertos: ', node.name)
+
         self.step += 1
         self.tree.format_message_tree(current_node_text, neighbors_text, node_try_text)
         self.tree.draw_tree('step-' + str(self.step))
@@ -204,8 +210,6 @@ class AStarController:
         for node in self.path:
             print('\n -- : ', node.name)
 
-    def drawGraphs(self):
-        self.graph.draw("TRABAJO PRACTICO FINAL IA 1")
 
     def draw_start_node(self):
         self.step += 1
@@ -307,7 +311,7 @@ class AStarController:
 
 # def get_node_in_list(self):,
 
-#Funcion de carga de nodo de forma aleatoria
+# Funcion de carga de nodo de forma aleatoria
     def random_nodes(self)-> List:
         #Lista de nombres posibles de nodos
         name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
@@ -324,6 +328,9 @@ class AStarController:
             self.add_node(i,heurist)
             node_list.append(nodo)
             nodo = []
+        # set nodos finales e iniciales, primero y ultimo si ya son aleatorios
+        self.start_node = self.nodes[0]
+        self.end_node = self.nodes[-1]
         return node_list
     
     # def random_edges(self) -> List:
@@ -342,19 +349,74 @@ class AStarController:
     #         edge = []
     #     return edge_list
 
+    # def random_edges(self) -> List:
+    #     edge = []
+    #     edge_list = []
+    #     for i in range(15):
+    #         cost = random.randint(1, 60)
+    #         node_start = self.nodes[random.randint(0, len(self.nodes) -1)]
+    #         node_end = self.nodes[random.randint(0, len(self.nodes) -1)]
+    #         print('NODO RANDOM START: ', node_start)
+    #         print('NODO RANDOM END: ', node_end)
+    #         print('cost : ', cost)
+    #         self.add_edge(node_start.name, node_end.name, cost)
+    #         edge.append(node_start.name)
+    #         edge.append(node_end.name)
+    #         edge_list.append(edge)
+    #         edge = []
+    #     return edge_list
+
     def random_edges(self) -> List:
+        # recibo la cantidad de relaciones por parametro
+        relationship_quantity = 15
         edge = []
         edge_list = []
-        for i in range(15):
-            cost = random.randint(1, 60)
-            node_start = self.nodes[random.randint(0, len(self.nodes) -1)]
-            node_end = self.nodes[random.randint(0, len(self.nodes) -1)]
-            print('NODO RANDOM START: ', node_start)
-            print('NODO RANDOM END: ', node_end)
-            print('cost : ', cost)
-            self.add_edge(node_start.name, node_end.name, cost)
-            edge.append(node_start.name)
-            edge.append(node_end.name)
-            edge_list.append(edge)
-            edge = []
+
+        nodes_quantity = len(self.nodes)
+        relationship_quantity_control = relationship_quantity
+
+        for node in self.nodes:
+            # si ya se terminaron las cantidades de relaciones skipeo
+            if relationship_quantity_control <= 0:
+                break
+            relation_ship_control_node = random.randint(0, relationship_quantity_control)
+            print('nodo : ', node.name)
+            print('cantidad de relaciones rand: ', relation_ship_control_node)
+            # se descontaran las cantidades para mantener el total cargado
+            relationship_quantity_control -= relation_ship_control_node
+            # relacionar ese nodo con otros nodos. (la cantidad especificada arriba)
+            for i in range(relation_ship_control_node):
+                # aca se arman las relaciones
+                cost = random.randint(1, 60)
+                node_end = self.nodes[random.randint(0, nodes_quantity - 1)]
+                # verifico no relacionar al mismo nodo
+                if node_end.name != node.name:
+                    # verifico no repetir la relacion
+                    if node_end not in node.get_neighbors():
+                        self.add_edge(node.name, node_end.name, cost)
+                        edge.append(node.name)
+                        edge.append(node_end.name)
+                        edge_list.append(edge)
+                        edge = []
+                    else:
+                        # no tengo en cuenta esta iteracion:
+                        relation_ship_control_node -= 1
+                else:
+                    # no tengo en cuenta esta iteracion:
+                    relation_ship_control_node -= 1
+
+
+
+        # for i in range(15):
+        #     cost = random.randint(1, 60)
+        #     node_start = self.nodes[random.randint(0, len(self.nodes) -1)]
+        #     node_end = self.nodes[random.randint(0, len(self.nodes) -1)]
+        #     print('NODO RANDOM START: ', node_start)
+        #     print('NODO RANDOM END: ', node_end)
+        #     print('cost : ', cost)
+        #     self.add_edge(node_start.name, node_end.name, cost)
+        #     edge.append(node_start.name)
+        #     edge.append(node_end.name)
+        #     edge_list.append(edge)
+        #     edge = []
         return edge_list

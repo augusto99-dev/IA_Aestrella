@@ -103,7 +103,7 @@ class ViewPrincipal():
             elif event == '-EDGE_TABLE-':
                 selected_index = values['-EDGE_TABLE-'][0]
                 selected_row = self.nodos_array[selected_index]
-                popup_message = "Nodo: " + selected_row[0] + "\n" + "Heuristica: " + selected_row[1]
+                popup_message = "Nodo: " + str(selected_row[0]) + "\n" + "Heuristica: " + str(selected_row[1])
                 sg.popup(popup_message)
             elif event == 'Insertar Arista':
                 arista = self.view_cargararista.create(self.combo_array)
