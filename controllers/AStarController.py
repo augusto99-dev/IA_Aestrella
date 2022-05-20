@@ -231,7 +231,7 @@ class AStarController:
         # for filepath in self.tree.filepaths:
         print('filepaths: ', self.tree.filepaths)
         print('filepath size ', len(self.tree.filepaths))
-        while cont < len(self.tree.filepaths) - 1:
+        while cont < len(self.tree.filepaths):
             action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont], 'message', 50, 50)
             print('retorno: ', action)
             if action == 'back':
@@ -266,6 +266,9 @@ class AStarController:
         # self.start_node = self.nodes[0]
         # self.end_node = self.nodes[-1]
 
+        # variable para indicar que no se encontro el camino
+        exist_path = True
+
         self.close_nodes.append(self.start_node)
         cont = 0
         # pintar nodo inicial
@@ -287,14 +290,20 @@ class AStarController:
             self.calculate_attr()
             self.try_neighbors()
             self.neighbors.clear()
+            if len(self.open_nodes) == 0:
+                print('El nodo inicial y final no se encuentran relacionados!!')
+                exist_path = False
+                break
             self.mov_promising_node_from_open_to_closed()
             cont += 1
-        # pintar nodo objetivo
-        self.paint_target_node()
-
-        # RUTA CORTA:
-        self.get_path()
-
+        if exist_path is True:
+            # pintar nodo objetivo
+            self.paint_target_node()
+            # RUTA CORTA:
+            self.get_path()
+        else:
+            # creo un paso mas indicando que no existe un camino hacia el destino.
+            self.paint_not_exist_path()
         # reinicio para lo ultimo
         self.neighbors = []
         self.open_nodes = []
@@ -304,6 +313,14 @@ class AStarController:
         # print('Filepaths: ', controller.tree.filepaths)
         # controller.launch_window_step()
 
+    def paint_not_exist_path(self):
+        self.step += 1
+        self.tree.add_message_in_tree('El nodo inicial:'
+                                      ' ' + self.current_node.name + ' Y el final:'
+                                                                     ' ' + self.end_node.name + ' '
+                                                                                                'son inalcanzables!')
+        self.tree.draw_tree('step-' + str(self.step))
+        self.message_step = ''
 
 # if __name__ == '__main__':
 #     aStar = AStarController()
@@ -313,6 +330,9 @@ class AStarController:
 
 # Funcion de carga de nodo de forma aleatoria
     def random_nodes(self)-> List:
+        # verifico si ya esta cargado algun nodo en el controlador
+        if len(self.nodes) > 0:
+            return False
         #Lista de nombres posibles de nodos
         name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
         #Crea una lista de 15 nombres aleatorios a partir de la lista de nombres
@@ -367,6 +387,9 @@ class AStarController:
     #     return edge_list
 
     def random_edges(self) -> List:
+        # verifico si ya no se cargo al controlador (Para que no se carguen de nuevo)
+        if len(self.nodes[0].edges) > 0:
+            return False
         # recibo la cantidad de relaciones por parametro
         relationship_quantity = 15
         edge = []
@@ -385,25 +408,27 @@ class AStarController:
             # se descontaran las cantidades para mantener el total cargado
             relationship_quantity_control -= relation_ship_control_node
             # relacionar ese nodo con otros nodos. (la cantidad especificada arriba)
-            for i in range(relation_ship_control_node):
+            cont = 0
+            flag = False
+            aux_exit_iterator = 0
+            while cont < relation_ship_control_node and flag is False:
+                print('en while. ', cont)
                 # aca se arman las relaciones
                 cost = random.randint(1, 60)
                 node_end = self.nodes[random.randint(0, nodes_quantity - 1)]
                 # verifico no relacionar al mismo nodo
                 if node_end.name != node.name:
                     # verifico no repetir la relacion
+                    if cont >= nodes_quantity - 1:
+                        flag = True
                     if node_end not in node.get_neighbors():
                         self.add_edge(node.name, node_end.name, cost)
                         edge.append(node.name)
                         edge.append(node_end.name)
                         edge_list.append(edge)
                         edge = []
-                    else:
-                        # no tengo en cuenta esta iteracion:
-                        relation_ship_control_node -= 1
-                else:
-                    # no tengo en cuenta esta iteracion:
-                    relation_ship_control_node -= 1
+                        cont += 1
+
 
 
 
