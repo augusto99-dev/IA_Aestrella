@@ -389,7 +389,7 @@ class AStarController:
         if len(self.nodes[0].edges) > 0:
             return False
         # recibo la cantidad de relaciones por parametro
-        relationship_quantity = 30
+        relationship_quantity = 15
         edge = []
         edge_list = []
 
