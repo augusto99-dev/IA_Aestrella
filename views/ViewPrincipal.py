@@ -16,8 +16,8 @@ class ViewPrincipal():
     nodos_array = []
     combo_array = []
     aristas_array = []
-    headings = ['Nodo', 'Heuristica']
-    headings_arista = ['Nodo Inicial', 'Nodo Final', 'Costo']
+    headings = ['Nodo', 'Heuristica', '            ']
+    headings_arista = ['Nodo Inicial', 'Nodo Final', 'Costo', '                             ']
     #view_cargarnodo = CargarNodos()
     #view_cargararista = CargarArista()
 
@@ -31,7 +31,7 @@ class ViewPrincipal():
 
         self.img_preview = ""
         self.layout2 = [
-            [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=35,
+            [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=55,
                       auto_size_columns=True,
                       display_row_numbers=False,
                       justification='center',
@@ -39,12 +39,6 @@ class ViewPrincipal():
                       enable_events=True,
                       key='-NODE_TABLE-',
                       row_height=55,
-                      def_col_width=50,
-                      border_width=3,
-                      background_color="#8D8D8D",
-                      header_border_width=5,
-                      header_font="Arial",
-                      sbar_width=5,
                       tooltip='Tabla de Nodos')],
             [sg.Button('Insertar'), sg.Button('Siguiente'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
         ]
