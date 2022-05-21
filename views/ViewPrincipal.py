@@ -3,6 +3,8 @@ import PySimpleGUI as sg
 import os.path
 from views.ViewCargarNodos import CargarNodos
 from views.ViewCargarArista import CargarArista
+from views.ViewCantidadNodos import CargarCantidadNodos
+from views.ViewCantidadAristas import CargarCantidadAristas
 # from views.ShowResult import ShowResult
 from views.ViewOrigenDestino import CargarOrigenDestino
 from controllers.AStarController import AStarController
@@ -24,6 +26,8 @@ class ViewPrincipal():
         self.view_cargarnodo = CargarNodos(controller)
         self.view_cargararista = CargarArista(controller)
         self.view_cargarOrigen = CargarOrigenDestino(controller)
+        self.view_cant_nodos = CargarCantidadNodos(controller)
+        self.view_cant_aristas = CargarCantidadAristas(controller)
 
         self.img_preview = "descarga.png"
         self.layout2 = [
@@ -34,7 +38,13 @@ class ViewPrincipal():
                       num_rows=10,
                       enable_events=True,
                       key='-NODE_TABLE-',
-                      row_height=35,
+                      row_height=55,
+                      def_col_width=50,
+                      border_width=3,
+                      background_color="#8D8D8D",
+                      header_border_width=5,
+                      header_font="Arial",
+                      sbar_width=5,
                       tooltip='Tabla de Nodos')],
             [sg.Button('Insertar'), sg.Button('Siguiente'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
         ]
@@ -46,7 +56,7 @@ class ViewPrincipal():
                       num_rows=10,
                       enable_events=True,
                       key='-EDGE_TABLE-',
-                      row_height=35,
+                      row_height=55,
                       tooltip='Tabla de Aristas')],
             [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
         ]
@@ -59,7 +69,7 @@ class ViewPrincipal():
             [sg.Button('Cargar Datos')]
         ]
 
-        self.layout = [[sg.Column(self.layout1, key='-COL1-'), sg.Column(self.layout2, visible=False, key='-COL2-'),
+        self.layout = [[sg.Column(self.layout1,  justification='center',key='-COL1-'), sg.Column(self.layout2,  justification='center',visible=False, key='-COL2-'),
                    sg.Column(self.layout3, visible=False, key='-COL3-')
                       , sg.Column(self.layout4, visible=False, key='-COL4-')],
                   [sg.Button('Exit')]]
@@ -82,16 +92,19 @@ class ViewPrincipal():
                 window['-COL1-'].update(visible=False)
                 window['-COL2-'].update(visible=True)
             elif event == 'Cargar Nodos Aleatoriamente':
-                self.nodos_array = self.controller.random_nodes()
-                window['-NODE_TABLE-'].update(self.nodos_array)
-                for nodo in self.nodos_array:
-                    self.combo_array.append(nodo[0])
+                self.nodos_array = self.view_cant_nodos.create()
+                if self.nodos_array != False:
+                    window['-NODE_TABLE-'].update(self.nodos_array)
+                    for nodo in self.nodos_array:
+                        self.combo_array.append(nodo[0])
             # Cargar relaciones
             elif event == 'Siguiente':
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=True)
             elif event == 'Cargar Aristas Aleatoriamente':
-                window['-EDGE_TABLE-'].update(self.controller.random_edges())
+                self.aristas_array = self.view_cant_aristas.create()
+                if self.aristas_array != False:
+                    window['-EDGE_TABLE-'].update(self.aristas_array)
             elif event == 'Definir Origen/Destino':
                 self.view_cargarOrigen.create(self.combo_array)
             elif event == 'Insertar':

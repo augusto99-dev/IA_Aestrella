@@ -329,14 +329,14 @@ class AStarController:
 # def get_node_in_list(self):,
 
 # Funcion de carga de nodo de forma aleatoria
-    def random_nodes(self)-> List:
+    def random_nodes(self,cant)-> List:
         # verifico si ya esta cargado algun nodo en el controlador
         if len(self.nodes) > 0:
             return False
         #Lista de nombres posibles de nodos
         name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
         #Crea una lista de 15 nombres aleatorios a partir de la lista de nombres
-        elec_list = random.sample(name_list, 15)
+        elec_list = random.sample(name_list, int(cant))
         nodo = []
         node_list= []
         #Por cada nombre en la lista cre el objeto nodo y devuelve la lista a la vista
@@ -386,12 +386,12 @@ class AStarController:
     #         edge = []
     #     return edge_list
 
-    def random_edges(self) -> List:
+    def random_edges(self,cant) -> List:
         # verifico si ya no se cargo al controlador (Para que no se carguen de nuevo)
         if len(self.nodes[0].edges) > 0:
             return False
         # recibo la cantidad de relaciones por parametro
-        relationship_quantity = 15
+        relationship_quantity = int(cant)
         edge = []
         edge_list = []
 
