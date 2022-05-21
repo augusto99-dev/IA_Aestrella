@@ -315,10 +315,7 @@ class AStarController:
 
     def paint_not_exist_path(self):
         self.step += 1
-        self.tree.add_message_in_tree('El nodo inicial:'
-                                      ' ' + self.current_node.name + ' Y el final:'
-                                                                     ' ' + self.end_node.name + ' '
-                                                                                                'son inalcanzables!')
+        self.tree.add_message_in_tree('El nodo final: ' + self.end_node.name + ' Es inalcanzable!')
         self.tree.draw_tree('step-' + str(self.step))
         self.message_step = ''
 
@@ -387,6 +384,7 @@ class AStarController:
     #     return edge_list
 
     def random_edges(self,cant) -> List:
+        fisrt_rand = True
         # verifico si ya no se cargo al controlador (Para que no se carguen de nuevo)
         if len(self.nodes[0].edges) > 0:
             return False
@@ -402,7 +400,11 @@ class AStarController:
             # si ya se terminaron las cantidades de relaciones skipeo
             if relationship_quantity_control <= 0:
                 break
-            relation_ship_control_node = random.randint(0, relationship_quantity_control)
+
+            if fisrt_rand is True:
+                relation_ship_control_node = random.randint(0, int(relationship_quantity_control / 2))
+            else:
+                relation_ship_control_node = random.randint(0, relationship_quantity_control)
             print('nodo : ', node.name)
             print('cantidad de relaciones rand: ', relation_ship_control_node)
             # se descontaran las cantidades para mantener el total cargado
