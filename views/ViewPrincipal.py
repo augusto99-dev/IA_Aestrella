@@ -82,7 +82,7 @@ class ViewPrincipal():
 
     def launch_view(self):
         window = sg.Window("TP Final Inteligencia Artificial", self.layout, resizable=True).Finalize()
-        window.Maximize()
+        # window.Maximize()
 
         while True:
             event, values = window.read()

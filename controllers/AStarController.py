@@ -11,6 +11,9 @@ from views.Tree import Tree
 
 import copy
 
+import numpy as np
+
+
 from views.show_tree_test import Step_to_step
 
 
@@ -401,10 +404,8 @@ class AStarController:
             if relationship_quantity_control <= 0:
                 break
 
-            if fisrt_rand is True:
-                relation_ship_control_node = random.randint(0, int(relationship_quantity_control / 2))
-            else:
-                relation_ship_control_node = random.randint(0, relationship_quantity_control)
+            relation_ship_control_node = int(np.random.uniform(0, relationship_quantity_control) / 2)
+                # random.randint(0, relationship_quantity_control)
             print('nodo : ', node.name)
             print('cantidad de relaciones rand: ', relation_ship_control_node)
             # se descontaran las cantidades para mantener el total cargado
