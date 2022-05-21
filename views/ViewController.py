@@ -2,6 +2,8 @@ from controllers.AStarController import AStarController
 from views.Desktop_Floating_Toolbar_Examples import ExamplesController
 from views.ViewPrincipal import ViewPrincipal
 
+import webbrowser
+
 
 class ViewController:
     def __init__(self):
@@ -13,6 +15,8 @@ class ViewController:
 
     def print_docs(self):
         print('LANZAR DOCUMENTO PDF')
+        path = '../docs/informe.pdf'
+        webbrowser.open_new(path)
 
     def launch_examples_view(self):
         print('Lanzando vista de ejemplos')

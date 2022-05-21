@@ -29,7 +29,7 @@ class ViewPrincipal():
         self.view_cant_nodos = CargarCantidadNodos(controller)
         self.view_cant_aristas = CargarCantidadAristas(controller)
 
-        self.img_preview = "descarga.png"
+        self.img_preview = ""
         self.layout2 = [
             [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=35,
                       auto_size_columns=True,
@@ -69,7 +69,7 @@ class ViewPrincipal():
             [sg.Button('Cargar Datos')]
         ]
 
-        self.layout = [[sg.Column(self.layout1,  justification='center',key='-COL1-'), sg.Column(self.layout2,  justification='center',visible=False, key='-COL2-'),
+        self.layout = [[sg.Column(self.layout2,  justification='center',visible=True, key='-COL2-'),
                    sg.Column(self.layout3, visible=False, key='-COL3-')
                       , sg.Column(self.layout4, visible=False, key='-COL4-')],
                   [sg.Button('Exit')]]

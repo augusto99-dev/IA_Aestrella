@@ -27,7 +27,7 @@ def make_window():
     sg.theme_background_color(screen_background_color)
     button_row = []
     for item in launcher_buttons.keys():
-        tip = 'Grab anywhere to move the launcher\nClick an item to launch something\nRight Click to get to settings'
+        tip = 'Seleccione una opción'
         if isinstance(item, bytes):
             button = sg.Button(image_data=item, key=item, metadata=launcher_buttons[item], button_color=screen_background_color,tooltip=tip, border_width=0)
         else:
