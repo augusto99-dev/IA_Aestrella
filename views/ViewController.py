@@ -1,4 +1,5 @@
 from controllers.AStarController import AStarController
+from views.Desktop_Floating_Toolbar_Examples import ExamplesController
 from views.ViewPrincipal import ViewPrincipal
 
 
@@ -15,6 +16,8 @@ class ViewController:
 
     def launch_examples_view(self):
         print('Lanzando vista de ejemplos')
+        view_examples = ExamplesController()
+        view_examples.launch_examples_view()
 
     def launch_guide(self):
         print('Lanzando vista de ejemplos')
