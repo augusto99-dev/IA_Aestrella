@@ -11,8 +11,8 @@ from controllers.AStarController import AStarController
 
 
 class ViewPrincipal():
-    img = "descarga.png"
-    img_preview = "descarga.png"
+    img = ""
+    img_preview = ""
     nodos_array = []
     combo_array = []
     aristas_array = []
@@ -69,7 +69,7 @@ class ViewPrincipal():
             [sg.Button('Cargar Datos')]
         ]
 
-        self.layout = [[sg.Column(self.layout2,  justification='center',visible=True, key='-COL2-'),
+        self.layout = [[sg.Column(self.layout1,  justification='center',key='-COL1-', visible=False), sg.Column(self.layout2,  justification='center',visible=True, key='-COL2-'),
                    sg.Column(self.layout3, visible=False, key='-COL3-')
                       , sg.Column(self.layout4, visible=False, key='-COL4-')],
                   [sg.Button('Exit')]]
