@@ -28,16 +28,16 @@ class Step_to_step:
         else:
             layout = [[sg.Image(img, expand_x=True)],
                       [sg.Text(message, size=(width, height), justification='center', expand_x=True)],
-                      [sg.Button('Siguiente'), sg.Button('Anterior', disabled=True), sg.Button('Cancel')]]
+                      [sg.Button('Siguiente'), sg.Button('Anterior', disabled=True), sg.Button('Exit')]]
 
         # Create the Window
         window = sg.Window('PASO: ' + str(number_step), layout)
 
         while True:
             event, values = window.read()
-            if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
+            if event == sg.WIN_CLOSED or event == 'Exit':  # if user closes window or clicks cancel
+                window.close()
                 return 'exit'
-                break
             elif event == 'Siguiente':  # if user closes window or clicks cancel
                 # print('siguiente')
                 window.close()
@@ -48,9 +48,7 @@ class Step_to_step:
                 return 'back'
                 break
             print('You entered ', values[0])
-
-
-
         window.close()
+
 
         # sg.Window(title, layout, keep_on_top=True, modal=True).read(close=2000)
