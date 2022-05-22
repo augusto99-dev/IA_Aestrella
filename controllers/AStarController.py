@@ -67,6 +67,19 @@ class AStarController:
     def main(self):
         print('In main of Controller')
 
+    def reset_values(self):
+        self.edges = []
+        self.nodes = []
+        self.end_node = None
+        self.start_node = None
+        self.current_node = None
+        self.neighbors = []
+        self.open_nodes = []
+        self.close_nodes = []
+        self.short_path = []
+
+
+
     def add_node(self, node_name: str, node_h: float):
         node = Node(node_name, 0, node_h, 0, None)
         self.graph_preview.add_node(node_name, node_name)
@@ -225,8 +238,13 @@ class AStarController:
 
     def paint_target_node(self):
         self.tree.set_node(self.end_node.name, 'target')
+        # mostrar la ruta en la imagen:
+        print(' RUTA CORTA REVERSA: ')
+        for node in reversed(self.path):
+            print('node.. ', node.name)
+
         self.tree.add_message_in_tree('El nodo ' + self.end_node.name + ' es el mas prometedor y '
-                                                                        'objetivo. Fin del proceso')
+                                                                'objetivo. Fin del proceso')
         self.tree.draw_tree('step-' + str(self.step))
 
     def launch_window_step(self):
@@ -322,11 +340,6 @@ class AStarController:
         self.tree.draw_tree('step-' + str(self.step))
         self.message_step = ''
 
-# if __name__ == '__main__':
-#     aStar = AStarController()
-#     aStar.main()
-
-# def get_node_in_list(self):,
 
 # Funcion de carga de nodo de forma aleatoria
     def random_nodes(self,cant)-> List:
@@ -352,39 +365,6 @@ class AStarController:
         self.start_node = self.nodes[0]
         self.end_node = self.nodes[-1]
         return node_list
-    
-    # def random_edges(self) -> List:
-    #     elect_start = random.choice(self.nodes, 15)
-    #     elect_final = random.choice(self.nodes, 15)
-    #     print(elect_start)
-    #     edge = []
-    #     edge_list = []
-    #     for i in range(15):
-    #         cost = random.randint(1, 60)
-    #         edge.append(elect_start[i].name)
-    #         edge.append(elect_final[i].name)
-    #         edge.append(cost)
-    #         self.add_edge(elect_start[i].name,elect_final[i].name,cost)
-    #         edge_list.append(edge)
-    #         edge = []
-    #     return edge_list
-
-    # def random_edges(self) -> List:
-    #     edge = []
-    #     edge_list = []
-    #     for i in range(15):
-    #         cost = random.randint(1, 60)
-    #         node_start = self.nodes[random.randint(0, len(self.nodes) -1)]
-    #         node_end = self.nodes[random.randint(0, len(self.nodes) -1)]
-    #         print('NODO RANDOM START: ', node_start)
-    #         print('NODO RANDOM END: ', node_end)
-    #         print('cost : ', cost)
-    #         self.add_edge(node_start.name, node_end.name, cost)
-    #         edge.append(node_start.name)
-    #         edge.append(node_end.name)
-    #         edge_list.append(edge)
-    #         edge = []
-    #     return edge_list
 
     def random_edges(self,cant) -> List:
         fisrt_rand = True

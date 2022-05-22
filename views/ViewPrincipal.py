@@ -78,6 +78,33 @@ class ViewPrincipal():
     def get_combo_list(self) -> List:
         return self.nodos_array
 
+    def launch_preview_example(self):
+        layout4 = [
+            [sg.Image(self.controller.getPreviewPath(), key='-IMG_PREV-', expand_x=True)],
+            [sg.Button('Resultado Directo'), sg.Button('Paso a paso'),
+             sg.Button('Salir')
+             ]
+        ]
+
+        window = sg.Window("TP Final Inteligencia Artificial", layout4, resizable=True).Finalize()
+
+        while True:
+            event, values = window.read()
+            if event == 'Salir' or event == sg.WIN_CLOSED:
+                break  # exit button clicked
+            elif event == 'Paso a paso':
+                # ver filepaths
+                # print('Filepaths: ', controller.tree.filepaths)
+                self.controller.run_alghoritm()
+                self.controller.launch_window_step()
+                # self.view_showresult.showresult("Paso a paso", self.img, "aa")
+            elif event == 'Resultado Directo':
+                self.controller.launch_window_direct_result()
+        window.close()
+
+
+
+
     def launch_view(self):
         layo = self.create_layout()
         window = sg.Window("TP Final Inteligencia Artificial", layo, resizable=True).Finalize()
@@ -138,6 +165,7 @@ class ViewPrincipal():
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=False)
                 window['-COL1-'].update(visible=True)
+                window.close()
             elif event == 'Terminar Carga':
                 window['-COL3-'].update(visible=False)
                 window['-COL4-'].update(visible=True)

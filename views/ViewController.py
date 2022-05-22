@@ -11,6 +11,8 @@ class ViewController:
 
 
     def launch_main_win(self):
+        # limpiamos valores de una prueba vieja
+        self.controller.reset_values()
         view_main = ViewPrincipal(self.controller)
         view_main.launch_view()
 

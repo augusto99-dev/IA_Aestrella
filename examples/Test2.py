@@ -2,37 +2,53 @@ from controllers.AStarController import AStarController
 from models.Node import Node
 
 
-class Test:
+class Test2:
     def __init__(self, controller: AStarController):
         # carga de nodos (Problema resuelto en carpeta)
-        node_a = Node('A', 0, 14, 0, None)
+        node_a = Node('A', 0, 58, 0, None)
         controller.nodes.append(node_a)
-        node_b = Node('B', 0, 12, 0, None)
+        node_b = Node('B', 0, 30, 0, None)
         controller.nodes.append(node_b)
-        node_c = Node('C', 0, 11, 0, None)
+        node_c = Node('C', 0, 78, 0, None)
         controller.nodes.append(node_c)
-        node_d = Node('D', 0, 6, 0, None)
+        node_d = Node('D', 0, 20, 0, None)
         controller.nodes.append(node_d)
-        node_e = Node('E', 0, 4, 0, None)
+        node_e = Node('E', 0, 25, 0, None)
         controller.nodes.append(node_e)
-        node_f = Node('F', 0, 11, 0, None)
+        node_f = Node('F', 0, 10, 0, None)
         controller.nodes.append(node_f)
-        node_z = Node('Z', 0, 0, 0, None)
-        controller.nodes.append(node_z)
-
+        node_g = Node('G', 0, 20, 0, None)
+        controller.nodes.append(node_g)
+        node_h = Node('H', 0, 20, 0, None)
+        controller.nodes.append(node_h)
+        node_i = Node('I', 0, 80, 0, None)
+        controller.nodes.append(node_i)
+        node_j = Node('J', 0, 20, 0, None)
+        controller.nodes.append(node_j)
+        node_k = Node('K', 0, 0, 0, None)
+        controller.nodes.append(node_k)
         # nodo inicial y final
         controller.start_node = node_a
-        controller.end_node = node_z
+        controller.end_node = node_k
 
         # relaciones
-        controller.add_edge("A", "B", 4)
-        controller.add_edge("A", "C", 3)
-        controller.add_edge("B", "F", 5)
-        controller.add_edge("B", "E", 12)
-        controller.add_edge("C", "D", 7)
-        controller.add_edge("C", "E", 10)
-        controller.add_edge("D", "E", 2)
-        controller.add_edge("E", "Z", 5)
+        controller.add_edge("A", "B", 90)
+        controller.add_edge("A", "C", 70)
+        controller.add_edge("A", "D", 20)
+        controller.add_edge("A", "E", 15)
+        controller.add_edge("B", "C", 10)
+        controller.add_edge("B", "F", 30)
+        controller.add_edge("B", "I", 40)
+        controller.add_edge("C", "B", 10)
+        controller.add_edge("C", "A", 70)
+        # controller.add_edge("C", "G", 32)
+        controller.add_edge("D", "H", 20)
+        controller.add_edge("H", "E", 60)
+        controller.add_edge("E", "G", 15)
+        controller.add_edge("G", "C", 32)
+        controller.add_edge("I", "J", 35)
+        controller.add_edge("F", "K", 15)
+        controller.add_edge("J", "K", 30)
 
     def run_test(self, controller: AStarController):
         controller.close_nodes.append(controller.start_node)
