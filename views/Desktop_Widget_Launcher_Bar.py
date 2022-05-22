@@ -54,8 +54,6 @@ def make_window():
 
     return window
 
-def launch_documantation():
-    print('LANZAR DOCUMENTACION. EN PDF')
 
 
 
