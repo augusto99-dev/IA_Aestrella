@@ -108,6 +108,7 @@ class ViewPrincipal():
     def launch_view(self):
         layo = self.create_layout()
         window = sg.Window("TP Final Inteligencia Artificial", layo, resizable=True).Finalize()
+
         # window.Maximize()
 
         while True:

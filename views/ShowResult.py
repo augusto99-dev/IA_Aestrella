@@ -19,8 +19,7 @@ class ShowResult():
 
         layout = [
             [sg.Image(img, expand_x=True)],
-            [sg.Text(message, size=(width, height), justification='center', expand_x=True)],
-            [sg.Button('Cerrar')]
+            [sg.Text(message, size=(width, height), justification='center', expand_x=True)]
         ]
 
-        sg.Window(title, layout, keep_on_top=True, modal=True).read(close=2000)
+        window = sg.Window(title, layout, keep_on_top=True, resizable=True).Finalize()

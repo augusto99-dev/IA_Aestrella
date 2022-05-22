@@ -377,7 +377,7 @@ class AStarController:
         edge_list = []
 
         nodes_quantity = len(self.nodes)
-        relationship_quantity_control = relationship_quantity
+        relationship_quantity_control = relationship_quantity+2
 
         for node in self.nodes:
             # si ya se terminaron las cantidades de relaciones skipeo

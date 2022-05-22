@@ -1,0 +1,27 @@
+digraph "images/tree/asd" {
+	node [color=lightblue2 style=filled]
+	size="6,6"
+	label="
+ 
+Nodo inicial indicado por el usuario.
+ 
+"
+	fontsize=9
+	M [fillcolor="#F96141"]
+	M [fillcolor="#FF6A0F"]
+	M -> F [label=41.0]
+	label="
+ 
+NODO ACTUAL: (M) 
+Se recorren sus vecinos: F ;
+ 
+"
+	fontsize=9
+	label="
+ 
+NODO ACTUAL: (F) 
+Se recorren sus vecinos:  (Ninguno) 
+ 
+"
+	fontsize=9
+}
