@@ -1,7 +1,7 @@
+import os
 from controllers.AStarController import AStarController
 from views.Desktop_Floating_Toolbar_Examples import ExamplesController
 from views.ViewPrincipal import ViewPrincipal
-
 import webbrowser
 
 
@@ -16,8 +16,9 @@ class ViewController:
 
     def print_docs(self):
         print('LANZAR DOCUMENTO PDF')
-        path = '../docs/informe.pdf'
-        webbrowser.open_new(path)
+        # path = 'docs/informe.pdf'
+        path2 = os.path.join(os.getcwd(), 'docs/informe.pdf')
+        webbrowser.open_new(path2)
 
     def launch_examples_view(self):
         print('Lanzando vista de ejemplos')
@@ -29,3 +30,5 @@ class ViewController:
 
     def launch_repo(self):
         print('repo de github')
+        url = "https://github.com/augusto99-dev/IA_Aestrella/"
+        webbrowser.open_new(url)
