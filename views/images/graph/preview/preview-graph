@@ -1,21 +1,3 @@
 digraph G {
 	size="6,6"
-	F [label=F]
-	Q [label=Q]
-	P [label=P]
-	N [label=N]
-	G [label=G]
-	D [label=D]
-	E [label=E]
-	T [label=T]
-	I [label=I]
-	L [label=L]
-	F -> D [label=54]
-	F -> L [label=42]
-	F -> I [label=10]
-	F -> G [label=39]
-	P -> N [label=26]
-	P -> L [label=11]
-	N -> T [label=10]
-	L -> I [label=8]
 }

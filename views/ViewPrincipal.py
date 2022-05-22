@@ -62,11 +62,14 @@ class ViewPrincipal():
             [sg.Image(self.img, expand_x=True)],
             [sg.Button('Cargar Datos')]
         ]
-
-        self.layout = [[sg.Column(self.layout1,  justification='center',key='-COL1-', visible=False), sg.Column(self.layout2,  justification='center',visible=True, key='-COL2-'),
-                   sg.Column(self.layout3, visible=False, key='-COL3-')
+    def create_layout(self):
+        self.layout = [[sg.Column(self.layout1, justification='center', key='-COL1-', visible=False),
+                        sg.Column(self.layout2, justification='center', visible=True, key='-COL2-'),
+                    sg.Column(self.layout3, visible=False, key='-COL3-')
                       , sg.Column(self.layout4, visible=False, key='-COL4-')],
-                  [sg.Button('Exit')]]
+                    [sg.Button('Exit')]]
+        return self.layout
+
 
     def get_node_list(self) -> List:
         return self.nodos_array
@@ -75,13 +78,14 @@ class ViewPrincipal():
         return self.nodos_array
 
     def launch_view(self):
-        window = sg.Window("TP Final Inteligencia Artificial", self.layout, resizable=True).Finalize()
+        layo = self.create_layout()
+        window = sg.Window("TP Final Inteligencia Artificial", layo, resizable=True).Finalize()
         # window.Maximize()
 
         while True:
             event, values = window.read()
             if event == "Exit" or event == sg.WIN_CLOSED:
-                break
+                window.close()
             elif event == 'Cargar Datos':
                 window['-COL1-'].update(visible=False)
                 window['-COL2-'].update(visible=True)
@@ -92,6 +96,8 @@ class ViewPrincipal():
                     for nodo in self.nodos_array:
                         self.combo_array.append(nodo[0])
             # Cargar relaciones
+            if event == "Exit" or event == sg.WIN_CLOSED:
+                window.close()
             elif event == 'Siguiente':
                 window['-COL2-'].update(visible=False)
                 window['-COL3-'].update(visible=True)
@@ -101,6 +107,8 @@ class ViewPrincipal():
                     window['-EDGE_TABLE-'].update(self.aristas_array)
             elif event == 'Definir Origen/Destino':
                 self.view_cargarOrigen.create(self.combo_array)
+            if event == "Exit" or event == sg.WIN_CLOSED:
+                break
             elif event == 'Insertar':
                 nodo = self.view_cargarnodo.create()
                 print('nodo: ', nodo)
@@ -141,6 +149,7 @@ class ViewPrincipal():
                 # self.view_showresult.showresult("Paso a paso", self.img, "aa")
             elif event == 'Resultado Directo':
                self.controller.launch_window_direct_result()
+            if event == "Exit" or event == sg.WIN_CLOSED:
+                window.close()
 
-            # window.close()
 

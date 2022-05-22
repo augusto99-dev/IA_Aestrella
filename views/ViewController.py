@@ -8,10 +8,11 @@ import webbrowser
 class ViewController:
     def __init__(self):
         self.controller = AStarController()
-        self.view_main = ViewPrincipal(self.controller)
+
 
     def launch_main_win(self):
-        self.view_main.launch_view()
+        view_main = ViewPrincipal(self.controller)
+        view_main.launch_view()
 
     def print_docs(self):
         print('LANZAR DOCUMENTO PDF')

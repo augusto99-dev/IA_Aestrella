@@ -7,4 +7,4 @@ def main():
     # controller = AStarController()
     # test = Test(controller)
     # test.run_test(controller)
-    Desktop_Widget_Launcher_Bar.main()
+    Desktop_Widget_Launcher_Bar
