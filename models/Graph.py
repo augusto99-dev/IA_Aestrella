@@ -36,7 +36,11 @@ class GraphPreview:
         self.u.render(view=True)
 
     def draw_preview(self):
-        self.u.render(view=False)
+        try:
+            self.u.render(view=False)
+        except:
+            print("An exception occurred: Capturada")
+
 
     def add_edge(self, start_node_name: str, end_node_name: str, cost: float):
         self.u.edge(start_node_name, end_node_name, label=str(cost))
