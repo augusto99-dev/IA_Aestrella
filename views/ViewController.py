@@ -1,9 +1,7 @@
 import os
-
 from controllers.AStarController import AStarController
 from views.Desktop_Floating_Toolbar_Examples import ExamplesController
 from views.ViewPrincipal import ViewPrincipal
-import sys
 import webbrowser
 
 
@@ -32,3 +30,5 @@ class ViewController:
 
     def launch_repo(self):
         print('repo de github')
+        url = "https://github.com/augusto99-dev/IA_Aestrella/"
+        webbrowser.open_new(url)

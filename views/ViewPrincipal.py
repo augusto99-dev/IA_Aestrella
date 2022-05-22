@@ -62,6 +62,7 @@ class ViewPrincipal():
             [sg.Image(self.img, expand_x=True)],
             [sg.Button('Cargar Datos')]
         ]
+        # sg.theme('Dark')
     def create_layout(self):
         self.layout = [[sg.Column(self.layout1, justification='center', key='-COL1-', visible=False),
                         sg.Column(self.layout2, justification='center', visible=True, key='-COL2-'),

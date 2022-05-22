@@ -6,10 +6,10 @@ class ExamplesController:
         pass
 
     def launch_examples_view(self):
-        sg.theme('Dark')
+        # sg.theme('Dark')
 
-        sg.set_options(element_padding=(0, 0),
-                       button_element_size=(12, 1), auto_size_buttons=False)
+        # sg.set_options(element_padding=(0, 0),
+        #               button_element_size=(12, 1), auto_size_buttons=False)
 
         layout = [[sg.Button('Ejemplo 1', button_color=('white', '#35008B')),
                    sg.Button('Ejemplo 2', button_color=('white', '#35008B')),
