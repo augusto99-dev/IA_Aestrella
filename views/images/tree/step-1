@@ -1,0 +1,11 @@
+digraph "images/tree/asd" {
+	node [color=lightblue2 style=filled]
+	size="6,6"
+	label="
+ 
+Nodo inicial indicado por el usuario.
+ 
+"
+	fontsize=9
+	M [fillcolor="#F96141"]
+}
