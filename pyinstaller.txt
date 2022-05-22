@@ -1,0 +1,42 @@
+# pygraphviz (and parts of networkx) depends on executable programs like dot.
+# Including just this binary is not sufficient since pyinstaller does not find
+# the libraries in lib/graphviz/, nor the config file.
+
+binaries=[
+          ('/usr/local/bin/dot', '.'),
+          ('/usr/local/bin/nop', '.'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_pango.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/graphviz/*/lib/graphviz/libgvplugin_core.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Reposit/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/ib/python3.8/site-packages/graphviz/libgvplugin_dot_layout.6.dylib', 'graphviz'),
+          ('/home/augusto/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/python3.8/site-packages/graphviz/graphviz/libgvplugin_core.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_gd.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_neato_layout.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_quartz.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_visio.6.dylib', 'graphviz'),
+          ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/libgvplugin_webp.6.dylib', 'graphviz'),
+         ]
+
+
+datas=[
+       ('/home/augusto/Escritorio/Repositories/python/IA_Aestrella/venv/lib/python3.8/site-packages/graphviz/config6', 'graphviz'),
+      ]
+
+
+
+binaries=[
+          ('/usr/local/bin/dot', '.'),
+          ('/usr/local/bin/nop', '.'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_pango.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_core.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_dot_layout.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_core.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_gd.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_neato_layout.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_quartz.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_visio.6.dylib', 'graphviz'),
+          ('/usr/local/Cellar/graphviz/*/lib/graphviz/libgvplugin_webp.6.dylib', 'graphviz'),
+         ]
+
+datas=[
+       ('/usr/local/Cellar/graphviz/*/lib/graphviz/config6', 'graphviz'),
+      ]
