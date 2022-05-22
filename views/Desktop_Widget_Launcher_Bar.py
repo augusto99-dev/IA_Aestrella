@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 
-
 from views.ViewController import ViewController
+
 
 view_controller = ViewController()
 

@@ -3,7 +3,7 @@ import random
 from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
-from views.Graph import Graph
+# from views.Graph import Graph
 from operator import attrgetter
 
 from views.ShowResult import ShowResult
