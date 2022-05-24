@@ -362,6 +362,7 @@ class AStarController:
                         self.add_edge(node.name, node_end.name, cost)
                         edge.append(node.name)
                         edge.append(node_end.name)
+                        edge.append(cost)
                         edge_list.append(edge)
                         edge = []
                         cont += 1
