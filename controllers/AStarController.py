@@ -3,7 +3,6 @@ import random
 from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
-# from views.Graph import Graph
 from operator import attrgetter
 
 from views.ShowResult import ShowResult
@@ -35,15 +34,12 @@ class AStarController:
     message_step = ''
 
     def __init__(self):
-        # borra despues este
-        # self.graph = Graph()
-        # self.edge = Node()
-        # self.node = Node()
         self.step = 0
         self.tree = Tree()
         self.graph_preview = GraphPreview()
         self.step_to_step_view = Step_to_step()
         self.view_showresult = ShowResult()
+
     def __repr__(self):
         return str(self.__dict__)
 
@@ -77,7 +73,8 @@ class AStarController:
         self.open_nodes = []
         self.close_nodes = []
         self.short_path = []
-
+        self.tree = Tree()
+        self.graph_preview = GraphPreview()
 
 
     def add_node(self, node_name: str, node_h: float):
@@ -94,15 +91,8 @@ class AStarController:
         return node_enc
 
     def add_edge(self, start, end, cost, di=True):
-        # arista para parte grafica
-        # self.graph.G.add_edge(start, end, weight=cost)
-        # para el preview
+        # para el preview - parte grafica
         self.graph_preview.add_edge(start, end, cost)
-        # Si el grafo no es dirigido
-        # if not di:
-            # Agrego otra arista en sentido contrario
-            # self.graph.G.add_edge(end, start, weight=cost)
-        # parte logica
         # obtengo el nodo para guardar sus aristas
         node = self.get_node(start)
         node.edges.append(Edge(node, self.get_node(end), cost))
@@ -144,31 +134,20 @@ class AStarController:
             else:
                 # verifico si esta en la lista de abiertos, si es asi retorno su valor. Sino retorna False
                 node_in_open: Node = next((x for x in self.open_nodes if x.name == node.name), False)
-                # print('por el else')
                 # si ya se encuentra en la lista de abierto = is not none
                 if node_in_open is not False:
-                    # print('si no es none')
-                    # print('node.g ', node.g)
-                    # print('node_in_open.g ', node_in_open.g)
                     self.message_step = self.message_step + '\n El nodo ' + node_in_open.name + ' ya se encuenta en la lista de abiertos. '
                     if node.g < node_in_open.g:
                         # self.tree.add_edge(self.current_node.name, node.name, node.g)
                         # cierro los otros que estan abiertos
                         self.tree.close_others(node.name)
                         # coloco el nuevo que quedara abierto
-                        # self.tree.add_message_in_tree(
-                        #    'El nodo ya existe en otro lado pero este mejora a los demas abiertos \n '
-                        #    'Por ello se recorre queda abierto y se cierran los otros')
                         node_try_text = node_try_text + '\n El nodo ' + node.name + ' mejora a los demas iguales abiertos \n '\
                                                                 'Por ello se recorre queda abierto y se cierran los otros iguales. \n'
                         self.tree.add_edge(self.current_node.name, node.name, node.g)
-                        # print('El g del nodo de vecino es menor al g del nodo de abierto')
+
                         # actualizo atributos del nodo de la lista de abierto con el de vecino
 
-                        # print('antes de actualizar la lista de abiertos (deberia estar en cerrados este nodo luego )')
-                        # print('\n ', node_in_open.name)
-                        # print('\n con G=', node_in_open.g)
-                        # node_in_open = node
                         node_in_open.g = node.g
                         node_in_open.h = node.h
                         node_in_open.f = node.f
@@ -179,12 +158,9 @@ class AStarController:
                             print('\n ', node2.g)
                     else:
                         # aqui deberia pintar cerrado porque no mejora al que estaba en abiertos
-                        # self.tree.add_message_in_tree('El nodo ya existe en otro lado pero no mejora al que ya estaba abierto \n '
-                        #                              'Por ello se recorre pero queda cerrado')
                         node_try_text = node_try_text + '\n El nodo ' + node.name + ' no mejora a los demas iguales ya abiertos. ' \
                                                                                          'Es por ello que se cierra. \n'
                         self.tree.add_edge_close(self.current_node.name, node.name, node.g)
-                        # self.tree.add_edge(self.current_node.name, node.name, node.g)
                 else:
                         print('no esta en la lista de abiertos: ', node.name)
 
@@ -197,12 +173,10 @@ class AStarController:
     #
     def calculate_attr(self):
         for node in self.neighbors:
-            # print('cost test: ', self.current_node.get_cost(node))
             node.g = self.current_node.g + self.current_node.get_cost(node)
             # node.h = node.h # Ya tiene cargado el h desde el input
             node.f = float(node.g) + float(node.h)
             node.predecessor = self.current_node
-            # print('Nodo in calculate_attr: ', node)
 
     def mov_promising_node_from_open_to_closed(self):
         ob_min = min(self.open_nodes, key=attrgetter('f'))
@@ -212,8 +186,6 @@ class AStarController:
         print('\n CON G: ', ob_min.g)
         self.open_nodes.remove(ob_min)
         self.close_nodes.append(ob_min)
-        # print('lista de abiertos despues de eliminar: ', self.open_nodes)
-        # print('lista de cerrados despues de agregar: ', self.close_nodes)
 
     def get_path(self):
         target_node: Node = self.close_nodes.pop()
@@ -249,9 +221,6 @@ class AStarController:
 
     def launch_window_step(self):
         cont = 0
-        # for filepath in self.tree.filepaths:
-        print('filepaths: ', self.tree.filepaths)
-        print('filepath size ', len(self.tree.filepaths))
         while cont < len(self.tree.filepaths):
             action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont], 'message', 50, 50)
             print('retorno: ', action)
@@ -279,13 +248,8 @@ class AStarController:
         return last_path
 
     def run_alghoritm(self):
-        # tree: Tree = Tree('start')
         self.tree = Tree()
-        # estos se deberian setear en la vista:
-        print('ALG START: ', self.start_node)
-        print('ALG END ', self.end_node)
-        # self.start_node = self.nodes[0]
-        # self.end_node = self.nodes[-1]
+        # estos se deberian setear en la vista: (nodos iniciales y finales)
 
         # variable para indicar que no se encontro el camino
         exist_path = True
@@ -293,8 +257,6 @@ class AStarController:
         self.close_nodes.append(self.start_node)
         cont = 0
         # pintar nodo inicial
-
-        # draw tree
         self.draw_start_node()
         while next((x for x in self.close_nodes if x.name == self.end_node.name), False) is False:
             asd = next((x for x in self.close_nodes if x.name == self.end_node.name), False)
@@ -303,11 +265,6 @@ class AStarController:
             # el anterior lo quita, entonces lo vuelvo a poner
             self.close_nodes.append(self.current_node)
             self.add_neighbors()
-            # pintar vecinos
-            # if exit_draw is False:
-            # print('----- VECINOS A PINTAR --------', controller.neighbors)
-            # for node in controller.neighbors:
-            # exit_draw = True
             self.calculate_attr()
             self.try_neighbors()
             self.neighbors.clear()
@@ -330,9 +287,6 @@ class AStarController:
         self.open_nodes = []
         self.close_nodes = []
         self.neighbors = []
-        # ver filepaths
-        # print('Filepaths: ', controller.tree.filepaths)
-        # controller.launch_window_step()
 
     def paint_not_exist_path(self):
         self.step += 1
@@ -347,7 +301,7 @@ class AStarController:
         if len(self.nodes) > 0:
             return False
         #Lista de nombres posibles de nodos
-        name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
+        name_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         #Crea una lista de 15 nombres aleatorios a partir de la lista de nombres
         elec_list = random.sample(name_list, int(cant))
         nodo = []

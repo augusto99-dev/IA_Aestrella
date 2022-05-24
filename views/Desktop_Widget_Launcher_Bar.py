@@ -13,6 +13,7 @@ launcher_buttons = {
                      'Guia Rápida': view_controller.launch_guide,
                      sg.EMOJI_BASE64_HAPPY_BIG_SMILE: view_controller.launch_repo,
                      'Documentación' : view_controller.print_docs,
+                     'Créditos' : view_controller.launch_view_credits,
                      'Exit': None}
 
 MINIMIZED_IMAGE = sg.EMOJI_BASE64_HAPPY_THUMBS_UP
@@ -83,7 +84,7 @@ def main():
         if event == 'Edit Me':
             sg.execute_editor(__file__)
         elif event == 'Version':
-            sg.popup_scrolled(sg.get_versions())
+            sg.popup_scrolled(view_controller.get_credits())
         elif event == sg.SYMBOL_DOWN_ARROWHEAD:
             window['-BUTTON COL-'].update(visible=False)
             window['-MINIMIZED COL-'].update(visible=True)
@@ -91,6 +92,7 @@ def main():
             window['-BUTTON COL-'].update(visible=True)
             window['-MINIMIZED COL-'].update(visible=False)
     window.close()
+
 
 
 if __name__ == '__main__':

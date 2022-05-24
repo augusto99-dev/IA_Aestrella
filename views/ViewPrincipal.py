@@ -1,11 +1,9 @@
 from typing import List
 import PySimpleGUI as sg
-import os.path
 from views.ViewCargarNodos import CargarNodos
 from views.ViewCargarArista import CargarArista
 from views.ViewCantidadNodos import CargarCantidadNodos
 from views.ViewCantidadAristas import CargarCantidadAristas
-# from views.ShowResult import ShowResult
 from views.ViewOrigenDestino import CargarOrigenDestino
 from controllers.AStarController import AStarController
 
@@ -18,8 +16,6 @@ class ViewPrincipal():
     aristas_array = []
     headings = ['Nodo', 'Heuristica', '            ']
     headings_arista = ['Nodo Inicial', 'Nodo Final', 'Costo', '                             ']
-    #view_cargarnodo = CargarNodos()
-    #view_cargararista = CargarArista()
 
     def __init__(self, controller: AStarController) -> None:
         self.controller = controller
