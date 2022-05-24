@@ -7,6 +7,7 @@ class CargarArista():
         def __init__(self, controller: AStarController) -> None:
             self.controller = controller
         def create(self,array_nodo):
+                arista = None
                 layout = [[sg.Text("Nodo Inicial: "), sg.Combo(array_nodo,key='-nodo_ini-', size=(10, 1))],
                         [sg.Text("Nodo Final: "), sg.Combo(array_nodo,key='-nodo_fin-', size=(10, 1))],
                         [sg.Text("Costo: "), sg.Input(key='-costo-', do_not_clear=True, size=(10, 1))],

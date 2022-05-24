@@ -63,7 +63,7 @@ class ViewPrincipal():
         self.layout = [[sg.Column(self.layout1, justification='center', key='-COL1-', visible=False),
                         sg.Column(self.layout2, justification='center', visible=True, key='-COL2-'),
                     sg.Column(self.layout3, visible=False, key='-COL3-')
-                      , sg.Column(self.layout4, visible=False, key='-COL4-')],
+                      , sg.Column(self.layout4, visible=False, key='-COL4-', scrollable=True)],
                     [sg.Button('Exit')]]
         return self.layout
 
@@ -136,10 +136,10 @@ class ViewPrincipal():
                 break
             elif event == 'Insertar':
                 nodo = self.view_cargarnodo.create()
-                print('nodo: ', nodo)
-                self.nodos_array.append(nodo)
-                self.combo_array.append(nodo[0])
-                window['-NODE_TABLE-'].update(self.nodos_array)
+                if nodo != None:
+                    self.nodos_array.append(nodo)
+                    self.combo_array.append(nodo[0])
+                    window['-NODE_TABLE-'].update(self.nodos_array)
             elif event == '-EDGE_TABLE-':
                 selected_index = values['-EDGE_TABLE-'][0]
                 selected_row = self.nodos_array[selected_index]
@@ -147,8 +147,9 @@ class ViewPrincipal():
                 sg.popup(popup_message)
             elif event == 'Insertar Arista':
                 arista = self.view_cargararista.create(self.combo_array)
-                self.aristas_array.append(arista)
-                window['-EDGE_TABLE-'].update(self.aristas_array)
+                if arista != None:
+                    self.aristas_array.append(arista)
+                    window['-EDGE_TABLE-'].update(self.aristas_array)
             elif event == '-EDGE_TABLE-':
                 selected_index = values['-EDGE_TABLE-'][0]
                 print('selected_index')

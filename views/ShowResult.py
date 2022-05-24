@@ -22,4 +22,4 @@ class ShowResult():
             [sg.Text(message, size=(width, height), justification='center', expand_x=True)]
         ]
 
-        window = sg.Window(title, layout, keep_on_top=True, resizable=True).Finalize()
+        sg.Window(title, layout, keep_on_top=True, resizable=True).Finalize()

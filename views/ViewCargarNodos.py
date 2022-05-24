@@ -8,6 +8,7 @@ class CargarNodos():
             self.controller = controller
 
         def create(self):
+                nodo = None
                 layout = [[sg.Text("Nodo"), sg.Input(key='-Nodo-', do_not_clear=True, size=(10, 1))],
                         [sg.Text("Heuristica"), sg.Input(key='-Heuristica-', do_not_clear=True, size=(10, 1))],
                         [sg.Button('Insertar'), sg.Exit()]]
