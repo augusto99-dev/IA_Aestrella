@@ -50,8 +50,9 @@ class ViewPrincipal():
                       tooltip='Tabla de Aristas')],
             [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
         ]
+        column = [[sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)]]
         self.layout4 = [
-            [sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)],
+            [sg.Column(column, size=(800,600),scrollable=True)],
             [sg.Button('Resultado Directo'), sg.Button('Paso a paso')]
         ]
         self.layout1 = [
@@ -63,7 +64,7 @@ class ViewPrincipal():
         self.layout = [[sg.Column(self.layout1, justification='center', key='-COL1-', visible=False),
                         sg.Column(self.layout2, justification='center', visible=True, key='-COL2-'),
                     sg.Column(self.layout3, visible=False, key='-COL3-')
-                      , sg.Column(self.layout4, visible=False, key='-COL4-', scrollable=True)],
+                      , sg.Column(self.layout4, visible=False, key='-COL4-')],
                     [sg.Button('Exit')]]
         return self.layout
 
@@ -75,8 +76,9 @@ class ViewPrincipal():
         return self.nodos_array
 
     def launch_preview_example(self):
+        column = [[sg.Image(self.controller.getPreviewPath(), key='-IMG_PREV-', expand_x=True)]]
         layout4 = [
-            [sg.Image(self.controller.getPreviewPath(), key='-IMG_PREV-', expand_x=True)],
+            [sg.Column(column, size=(800,600),scrollable=True)],
             [sg.Button('Resultado Directo'), sg.Button('Paso a paso'),
              sg.Button('Salir')
              ]
