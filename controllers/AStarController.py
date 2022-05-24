@@ -1,5 +1,5 @@
-from ast import List
 import random
+from typing import List
 from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
