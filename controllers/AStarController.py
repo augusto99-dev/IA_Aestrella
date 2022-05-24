@@ -4,17 +4,11 @@ from models.Graph import GraphPreview
 from models.Node import Node
 from models.Edge import Edge
 from operator import attrgetter
-
 from views.ShowResult import ShowResult
 from views.Tree import Tree
-
 import copy
-
 import numpy as np
-
-
 from views.show_tree_test import Step_to_step
-
 
 class AStarController:
     open_nodes = []
@@ -130,7 +124,6 @@ class AStarController:
                 # self.tree.add_message_in_tree('Recorro los vecinos del nodo actual.')
 
                 self.tree.add_edge(self.current_node.name, node.name, node.g)
-
             else:
                 # verifico si esta en la lista de abiertos, si es asi retorno su valor. Sino retorna False
                 node_in_open: Node = next((x for x in self.open_nodes if x.name == node.name), False)
@@ -222,7 +215,7 @@ class AStarController:
     def launch_window_step(self):
         cont = 0
         while cont < len(self.tree.filepaths):
-            action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont], 'message', 50, 50)
+            action = self.step_to_step_view.steptostep(cont, self.tree.filepaths[cont])
             print('retorno: ', action)
             if action == 'back':
                 cont -= 1

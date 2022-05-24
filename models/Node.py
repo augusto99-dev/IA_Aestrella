@@ -2,8 +2,6 @@
 
 
 class Node:
-    # edges = []
-
     def __init__(self, name, g, h, f, predecessor):
         self.name = name
         self.g: float = g

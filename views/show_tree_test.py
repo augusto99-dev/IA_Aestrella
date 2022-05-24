@@ -1,4 +1,4 @@
-from textwrap import wrap
+
 import PySimpleGUI as sg
 
 
@@ -7,10 +7,8 @@ class Step_to_step:
         pass
 
 
-    def steptostep(self, number_step, img, message, width, height):
+    def steptostep(self, number_step, img):
 
-        lines = list(map(lambda line: wrap(line, width=width), message.split('\n')))
-        height = sum(map(len, lines))
         layout = ''
         if number_step != 0:
             layout = [[sg.Image(img, expand_x=True)],
