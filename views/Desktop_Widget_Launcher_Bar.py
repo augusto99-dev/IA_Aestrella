@@ -5,11 +5,15 @@ from views.ViewController import ViewController
 
 view_controller = ViewController()
 
+def launch_examples_view():
+    print('minimizando .. ')
+    view_controller.launch_examples_view()
+
+
 # This is your master table.... keys are what will be shown on the bar.  The item is what you want to happen.
 launcher_buttons = {
-                     sg.SYMBOL_DOWN_ARROWHEAD : None,
                      'A Estrella': view_controller.launch_main_win,
-                    'Ejemplos' : view_controller.launch_examples_view,
+                    'Ejemplos' :  launch_examples_view,
                      'Guia Rápida': view_controller.launch_guide,
                      sg.EMOJI_BASE64_HAPPY_BIG_SMILE: view_controller.launch_repo,
                      'Documentación' : view_controller.print_docs,
@@ -19,7 +23,9 @@ launcher_buttons = {
 MINIMIZED_IMAGE = sg.EMOJI_BASE64_HAPPY_THUMBS_UP
 
 DEFAULT_SCREEN_BACKGROUND_COLOR = 'black'
-DEFAULT_BUTTON_SIZE = (12, 5)
+DEFAULT_BUTTON_SIZE = (6, 3)
+
+
 
 def make_window():
 
@@ -74,12 +80,20 @@ def main():
             break
         if event in launcher_buttons:
             action = window[event].metadata
+            print('minimizando .. en metadata')
+            window['-MINIMIZED COL-'].update(visible=True)
+            window['-BUTTON COL-'].update(visible=False)
             if isinstance(action, str):
+                print('minimizando ..  en is instance')
                 if action.endswith(('.py', '.pyw')):
+                    print('minimizando ..  in enwith')
                     sg.execute_py_file(action)
+
                 else:
+                    print('minimizando .. en execute subprocess')
                     sg.execute_command_subprocess(action)
             elif callable(action):
+                print('minimizando .. en callable')
                 action()
         if event == 'Edit Me':
             sg.execute_editor(__file__)

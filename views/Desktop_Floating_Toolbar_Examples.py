@@ -23,18 +23,24 @@ class ExamplesController:
                    sg.Button('EXIT', button_color=('white', 'firebrick3'))],
                   [sg.Text('', text_color='white', size=(50, 1), key='output')]]
 
+        screen_size = sg.Window.get_screen_size()
+        location = screen_size[0] // 2, screen_size[
+            1] - 200  # set a default location centered and near the bottom of the screen
+        location = sg.user_settings_get_entry('-window location-', location)
+
         window = sg.Window('Ejemplos',
                            layout,
+                           location=location,
                            no_titlebar=True,
                            grab_anywhere=True,
                            keep_on_top=True)
 
-        # ---===--- Loop taking in user input and executing appropriate program --- #
         while True:
             event, values = window.read()
             if event == 'EXIT' or event == sg.WIN_CLOSED:
                 break  # exit button clicked
             if event == 'Ejemplo 1':
+                window.close()
                 print('Run your program 1 here!')
                 controller: AStarController = AStarController()
                 controller.reset_values()
@@ -44,6 +50,7 @@ class ExamplesController:
 
 
             elif event == 'Ejemplo 2':
+                window.close()
                 print('Run your program 2 here!')
                 controller_example2: AStarController = AStarController()
                 controller_example2.reset_values()
