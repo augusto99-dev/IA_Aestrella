@@ -36,7 +36,7 @@ class ViewPrincipal():
                       key='-NODE_TABLE-',
                       row_height=55,
                       tooltip='Tabla de Nodos')],
-            [sg.Button('Insertar'), sg.Button('Siguiente'),sg.Button('Cargar Nodos Aleatoriamente'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar'), sg.Button('Siguiente'),sg.Button('Cargar Nodos Aleatoriamente')]
         ]
         self.layout3 = [
                     [sg.Table(values=self.aristas_array, headings=self.headings_arista, max_col_width=35,
@@ -48,7 +48,7 @@ class ViewPrincipal():
                       key='-EDGE_TABLE-',
                       row_height=55,
                       tooltip='Tabla de Aristas')],
-            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Cancelar Carga')]
+            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Volver a atras')]
         ]
         column = [[sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)]]
         self.layout4 = [
@@ -161,11 +161,10 @@ class ViewPrincipal():
                 print(sel_row)
                 popup_message = "Nodo Incial: " + sel_row[0] + "\n" + "Nodo Final: " + sel_row[1]+ "\n" + "Costo: " + sel_row[2]
                 sg.popup(popup_message)
-            elif event == 'Cancelar Carga':
-                window['-COL2-'].update(visible=False)
+            elif event == 'Volver a atras':
+                window['-COL2-'].update(visible=True)
                 window['-COL3-'].update(visible=False)
-                window['-COL1-'].update(visible=True)
-                window.close()
+                window['-COL1-'].update(visible=False)
             elif event == 'Terminar Carga':
                 window['-COL3-'].update(visible=False)
                 window['-COL4-'].update(visible=True)
