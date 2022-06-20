@@ -14,8 +14,8 @@ class ViewPrincipal():
     nodos_array = []
     combo_array = []
     aristas_array = []
-    headings = ['Nodo', 'Heuristica', '            ']
-    headings_arista = ['Nodo Inicial', 'Nodo Final', 'Costo', '                             ']
+    headings = ['Nodo', 'Heuristica', '  ']
+    headings_arista = ['Nodo Inicial', 'Nodo Final', 'Costo', ' ']
 
     def __init__(self, controller: AStarController) -> None:
         self.controller = controller
@@ -26,17 +26,17 @@ class ViewPrincipal():
         self.view_cant_aristas = CargarCantidadAristas(controller)
 
         self.img_preview = ""
-
+        column_prev = [[sg.Image(self.img_preview, key='-IMG_PREV_RELAT-',expand_x=True)]]
         self.layout5 = [
             [sg.Text("Vista previa de Relaciones")],
-            [sg.Image(self.img_preview, key='-IMG_PREV_RELAT-',expand_x=True)],
+            [sg.Column(column_prev, size=(300,250),scrollable=True)],
         ]
         self.layout2 = [
             [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=55,
                       auto_size_columns=True,
                       display_row_numbers=False,
                       justification='center',
-                      num_rows=10,
+                      num_rows=5,
                       enable_events=True,
                       key='-NODE_TABLE-',
                       row_height=55,
@@ -48,16 +48,18 @@ class ViewPrincipal():
                       auto_size_columns=True,
                       display_row_numbers=False,
                       justification='left',
-                      num_rows=10,
+                      num_rows=5,
                       enable_events=True,
                       key='-EDGE_TABLE-',
                       row_height=55,
                       tooltip='Tabla de Aristas')],
-            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino'),sg.Button('Cargar Aristas Aleatoriamente'), sg.Button('Terminar Carga'), sg.Button('Volver a atras')]
+            [sg.Button('Insertar Arista'),sg.Button('Definir Origen/Destino')],
+            [sg.Button('Terminar Carga'),sg.Button('Volver a atras')],
+            [sg.Button('Cargar Aristas Aleatoriamente')]
         ]
         column = [[sg.Image(self.img_preview, key='-IMG_PREV-',expand_x=True)]]
         self.layout4 = [
-            [sg.Column(column, size=(800,600),scrollable=True)],
+            [sg.Column(column, size=(400,350),scrollable=True)],
             [sg.Button('Resultado Directo'), sg.Button('Paso a paso')]
         ]
         self.layout1 = [
