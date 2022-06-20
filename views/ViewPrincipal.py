@@ -26,6 +26,11 @@ class ViewPrincipal():
         self.view_cant_aristas = CargarCantidadAristas(controller)
 
         self.img_preview = ""
+
+        self.layout5 = [
+            [sg.Text("Vista previa de Relaciones")],
+            [sg.Image(self.img_preview, key='-IMG_PREV_RELAT-',expand_x=True)],
+        ]
         self.layout2 = [
             [sg.Table(values=self.nodos_array, headings=self.headings, max_col_width=55,
                       auto_size_columns=True,
@@ -42,7 +47,7 @@ class ViewPrincipal():
                     [sg.Table(values=self.aristas_array, headings=self.headings_arista, max_col_width=35,
                       auto_size_columns=True,
                       display_row_numbers=False,
-                      justification='center',
+                      justification='left',
                       num_rows=10,
                       enable_events=True,
                       key='-EDGE_TABLE-',
@@ -64,8 +69,9 @@ class ViewPrincipal():
         self.layout = [[sg.Column(self.layout1, justification='center', key='-COL1-', visible=False),
                         sg.Column(self.layout2, justification='center', visible=True, key='-COL2-'),
                     sg.Column(self.layout3, visible=False, key='-COL3-')
-                      , sg.Column(self.layout4, visible=False, key='-COL4-')],
-                    [sg.Button('Exit')]]
+                      , sg.Column(self.layout4, visible=False, key='-COL4-'),
+                        sg.Column(self.layout5, visible=False, key='-COL5-')],
+                        [sg.Button('Exit')]]
         return self.layout
 
 
@@ -152,6 +158,8 @@ class ViewPrincipal():
                 if arista != None:
                     self.aristas_array.append(arista)
                     window['-EDGE_TABLE-'].update(self.aristas_array)
+                    window['-IMG_PREV_RELAT-'].update(self.controller.getPreviewPath())
+                    window['-COL5-'].update(visible=True)
             elif event == '-EDGE_TABLE-':
                 selected_index = values['-EDGE_TABLE-'][0]
                 print('selected_index')
@@ -165,6 +173,7 @@ class ViewPrincipal():
                 window['-COL2-'].update(visible=True)
                 window['-COL3-'].update(visible=False)
                 window['-COL1-'].update(visible=False)
+                window['-COL5-'].update(visible=False)
             elif event == 'Terminar Carga':
                 window['-COL3-'].update(visible=False)
                 window['-COL4-'].update(visible=True)
