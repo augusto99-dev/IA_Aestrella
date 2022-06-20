@@ -22,7 +22,7 @@ class CargarNodos():
                         if event == 'Insertar':
                                 try:
                                         heu = int(values['-Heuristica-'])
-                                        if heu > 0:
+                                        if heu >= 0:
                                                 nodo = [values['-Nodo-'], values['-Heuristica-']]
                                                 self.controller.add_node(values['-Nodo-'], values['-Heuristica-'])
                                                 break

@@ -91,6 +91,16 @@ class AStarController:
         node = self.get_node(start)
         node.edges.append(Edge(node, self.get_node(end), cost))
 
+    def delete_edge(self,pos, di=True):
+        pass
+        # para el preview - parte grafica
+        #self.graph_preview.add_edge(start, end, cost)
+        # obtengo el nodo para guardar sus aristas
+        #node = self.get_node(start)
+        #self.aristas_array.pop(selected_index)
+        #self.aristas_array.insert(selected_index,arista)
+        #node.edges.append(Edge(node, self.get_node(end), cost))
+
     def add_neighbors(self):
         # pintar nodo actual como cerrado. Si no es el nodo inicial
         current_neighbors = self.current_node.get_neighbors()

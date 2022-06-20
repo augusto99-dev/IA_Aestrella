@@ -148,11 +148,6 @@ class ViewPrincipal():
                     self.nodos_array.append(nodo)
                     self.combo_array.append(nodo[0])
                     window['-NODE_TABLE-'].update(self.nodos_array)
-            elif event == '-EDGE_TABLE-':
-                selected_index = values['-EDGE_TABLE-'][0]
-                selected_row = self.nodos_array[selected_index]
-                popup_message = "Nodo: " + str(selected_row[0]) + "\n" + "Heuristica: " + str(selected_row[1])
-                sg.popup(popup_message)
             elif event == 'Insertar Arista':
                 arista = self.view_cargararista.create(self.combo_array)
                 if arista != None:
@@ -160,15 +155,6 @@ class ViewPrincipal():
                     window['-EDGE_TABLE-'].update(self.aristas_array)
                     window['-IMG_PREV_RELAT-'].update(self.controller.getPreviewPath())
                     window['-COL5-'].update(visible=True)
-            elif event == '-EDGE_TABLE-':
-                selected_index = values['-EDGE_TABLE-'][0]
-                print('selected_index')
-                print(selected_index)
-                sel_row = self.aristas_array[selected_index]
-                print('sel_row')
-                print(sel_row)
-                popup_message = "Nodo Incial: " + sel_row[0] + "\n" + "Nodo Final: " + sel_row[1]+ "\n" + "Costo: " + sel_row[2]
-                sg.popup(popup_message)
             elif event == 'Volver a atras':
                 window['-COL2-'].update(visible=True)
                 window['-COL3-'].update(visible=False)
@@ -177,6 +163,7 @@ class ViewPrincipal():
             elif event == 'Terminar Carga':
                 window['-COL3-'].update(visible=False)
                 window['-COL4-'].update(visible=True)
+                window['-COL5-'].update(visible=False)
                 window['-IMG_PREV-'].update(self.controller.getPreviewPath())
             elif event == 'Paso a paso':
                 # ver filepaths
